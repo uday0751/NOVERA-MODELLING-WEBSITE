@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { ThreeDBadge } from '@/components/ThreeDBadge';
+import { ScrambleText } from '@/components/ScrambleText';
 
 export default function Home() {
   return (
@@ -86,9 +87,11 @@ export default function Home() {
         <div className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-8 my-auto pt-6">
           {/* Left Block: Quote & Action Button */}
           <div className="md:col-span-5 space-y-6 max-w-md">
-            <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
-              NOVARA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
-            </p>
+            <ScrambleText
+              text="NOVARA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO"
+              trigger="onMount"
+              className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95"
+            />
 
             <div className="pt-2">
               <Link
