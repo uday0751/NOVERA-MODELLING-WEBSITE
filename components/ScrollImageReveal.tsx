@@ -18,7 +18,6 @@ export const DEFAULT_CONFIG = {
   NEXT_SECTION_CROP_PERCENT: 100, // Show full 100% (down to boots) by section 2
   SCALE_DRIFT: 1.03, // Subtle scale drift (1 -> 1.03)
   ROTATION_DRIFT: 1, // Subtle rotation drift (0deg -> 1deg)
-  SCROLL_DISTANCE: '200vh',
 };
 
 export interface ScrollImageRevealProps {
@@ -45,11 +44,10 @@ export function ScrollImageReveal({
   className = '',
 }: ScrollImageRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const imageWrapperRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLImageElement>(null);
+  const innerImageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !imageWrapperRef.current) return;
+    if (!containerRef.current || !innerImageRef.current) return;
 
     // 1. Accessibility Check for prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -58,48 +56,21 @@ export function ScrollImageReveal({
     }
 
     const ctx = gsap.context(() => {
-      // Calculate translate percentage required to move from top crop to lower crop
-      const translatePercent = nextSectionCropPercent - heroCropBottomPercent;
+      // Shift image upwards as user scrolls into Section 2
+      const shiftDistance = (nextSectionCropPercent - heroCropBottomPercent) * 8; // smooth vertical shift
 
-      if (revealMode === 'pinned') {
-        // Pinned Mode: Pin the image container while scrolling through both sections
-        ScrollTrigger.create({
+      gsap.to(innerImageRef.current, {
+        y: -shiftDistance,
+        scale: scaleDrift,
+        rotate: rotationDrift,
+        ease: 'none',
+        scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
           end: 'bottom bottom',
-          pin: imageWrapperRef.current,
-          pinSpacing: false,
           scrub: true,
-        });
-
-        // Animate translateY, scale, and rotation tied to scroll progress
-        gsap.to(imageWrapperRef.current, {
-          yPercent: -translatePercent,
-          scale: scaleDrift,
-          rotate: rotationDrift,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-          },
-        });
-      } else {
-        // Parallax Mode: Differential scroll speed relative to surrounding content
-        gsap.to(imageWrapperRef.current, {
-          yPercent: -(translatePercent * 1.5),
-          scale: scaleDrift,
-          rotate: rotationDrift,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true,
-          },
-        });
-      }
+        },
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -108,43 +79,45 @@ export function ScrollImageReveal({
   return (
     <div
       ref={containerRef}
-      className={`relative w-full min-h-[200vh] bg-white text-black overflow-hidden ${className}`}
+      className={`relative w-full bg-white text-black ${className}`}
     >
-      {/* 3x3 Architectural Grid Overlay */}
-      <div className="architectural-grid-white z-10 pointer-events-none">
-        <div /><div /><div />
-        <div /><div /><div />
-        <div /><div /><div />
-      </div>
-
-      {/* SINGLE FULL MODEL IMAGE CONTAINER (SPANS BOTH SECTIONS) */}
-      <div
-        ref={imageWrapperRef}
-        className="absolute inset-0 z-0 flex justify-center pointer-events-none p-4 md:p-8 will-change-transform"
-      >
-        <div className="relative w-full max-w-5xl h-full min-h-[1800px] md:min-h-[2000px]">
+      {/* STICKY FULL MODEL IMAGE CONTAINER (PIVOTAL DISPLAY SPANNING BOTH SECTIONS) */}
+      <div className="sticky top-0 h-screen w-full z-0 flex items-center justify-center overflow-hidden pointer-events-none p-4 md:p-8">
+        <div
+          ref={innerImageRef}
+          className="relative w-full max-w-5xl h-[160vh] md:h-[180vh] transition-transform duration-75"
+        >
           <Image
-            ref={imageRef as any}
             src={imageSrc}
             alt="ALVORE High Fashion Editorial Full Body Model"
             fill
             priority
             quality={100}
             unoptimized
-            className="object-contain object-top transition-transform duration-75"
+            className="object-contain object-top"
           />
         </div>
       </div>
 
-      {/* SECTION 1: HERO SECTION (TOP 50-55% CROPPED TILL WAIST) */}
-      <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 pt-[90px] pb-12">
-        {heroContent}
-      </section>
+      {/* OVERLAY CONTENT SPANNING 2 VIEWPORTS ABOVE THE STICKY IMAGE */}
+      <div className="relative z-20 -mt-[100vh]">
+        {/* 3x3 Architectural Grid Overlay */}
+        <div className="architectural-grid-white z-10 pointer-events-none">
+          <div /><div /><div />
+          <div /><div /><div />
+          <div /><div /><div />
+        </div>
 
-      {/* SECTION 2: NEXT SECTION (FULL REVEAL TILL LEGS/SHOES) */}
-      <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 py-16 bg-white/40 backdrop-blur-[2px] border-t border-black/10">
-        {nextSectionContent}
-      </section>
+        {/* SECTION 1: HERO SECTION (WAIST LOOK) */}
+        <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 pt-[90px] pb-12">
+          {heroContent}
+        </section>
+
+        {/* SECTION 2: NEXT SECTION (FULL REVEAL TILL LEGS/SHOES) */}
+        <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 py-16 border-t border-black/10">
+          {nextSectionContent}
+        </section>
+      </div>
     </div>
   );
 }
