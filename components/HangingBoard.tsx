@@ -7,19 +7,36 @@ import { ScrambleText } from '@/components/ScrambleText';
 export function HangingBoard() {
   return (
     <div className="relative z-40 flex flex-col items-end group origin-top my-1">
-      {/* Single Hanging Wire extending from top boundary down to Exact Top-Middle */}
-      <div className="absolute -top-[100px] right-28 flex flex-col items-center pointer-events-none z-30">
+      {/* Single Hanging Wire dropping down from top boundary */}
+      <motion.div
+        initial={{ y: -350, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1.1, delay: 1.4, ease: [0.175, 0.885, 0.32, 1.2] }}
+        className="absolute -top-[100px] right-28 flex flex-col items-center pointer-events-none z-30"
+      >
         {/* Top Ceiling Mount Ring */}
         <div className="w-3 h-3 rounded-full border-2 border-black bg-white shadow-md" />
         {/* Single Center Rope/Wire */}
         <div className="w-[2px] h-[100px] bg-gradient-to-b from-black via-gray-500 to-black shadow-xs" />
-      </div>
+      </motion.div>
 
-      {/* Blackboard Suspended from Top-Middle Center at a Tilted Angle */}
+      {/* Blackboard Dropping Down from Top on Reload and Settling into Suspended Sway */}
       <motion.div
-        initial={{ rotate: -10 }}
-        animate={{ rotate: [-12, -8, -12] }}
-        transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
+        initial={{ y: -350, opacity: 0, rotate: -25 }}
+        animate={{
+          y: 0,
+          opacity: 1,
+          rotate: [-25, 12, -14, 8, -10],
+        }}
+        transition={{
+          y: { duration: 1.1, delay: 1.4, ease: [0.175, 0.885, 0.32, 1.2] },
+          opacity: { duration: 0.5, delay: 1.4 },
+          rotate: {
+            duration: 2.8,
+            delay: 1.4,
+            ease: 'easeOut',
+          },
+        }}
         whileHover={{ scale: 1.05, rotate: -6 }}
         style={{ transformOrigin: 'top center' }}
         className="relative z-40 mt-1 px-5 py-4 rounded-2xl bg-gradient-to-b from-[#1a1a1a] via-[#111111] to-[#080808] text-white border border-white/20 shadow-2xl max-w-[230px] text-center flex flex-col items-center justify-center cursor-pointer select-none overflow-hidden"
