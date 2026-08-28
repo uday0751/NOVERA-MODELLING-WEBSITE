@@ -105,9 +105,6 @@ export default function Home() {
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             ALVORE EDITORIAL // 2026
           </span>
-          <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            FULL HD QUALITY PRESERVED
-          </span>
         </div>
       </section>
 
