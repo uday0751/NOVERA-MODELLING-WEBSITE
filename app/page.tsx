@@ -24,7 +24,7 @@ export default function Home() {
       <header className="fixed top-0 left-0 right-0 z-50 px-6 lg:px-16 py-5 flex items-center justify-between border-b border-black/10 bg-white/85 backdrop-blur-xl shadow-2xs">
         <Link href="/" className="font-['Syne'] font-extrabold text-2xl tracking-widest text-black flex items-center space-x-2">
           <span>NOVARA</span>
-          <span className="text-[10px] font-mono font-bold tracking-normal px-2 py-0.5 rounded-full bg-black text-white uppercase">
+          <span className="text-[10px] font-mono font-bold tracking-normal px-2.5 py-0.5 rounded-full bg-black text-white uppercase">
             AGENCY // 2026
           </span>
         </Link>
@@ -66,8 +66,12 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ANCHOR HERO SECTION DESIGN */}
+      {/* ANCHOR HERO SECTION DESIGN WITH FLOATING EDITORIAL BADGES */}
       <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 pt-[100px] pb-12">
+        
+        {/* Soft Ambient Glow Halo behind hero model */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-gray-200/50 via-gray-100/30 to-transparent rounded-full blur-3xl pointer-events-none z-0" />
+
         {/* Background Clean Studio Model Image */}
         <div className="absolute inset-0 z-0 flex justify-center pointer-events-none p-4 md:p-8">
           <div className="relative w-full max-w-5xl h-full">
@@ -78,9 +82,23 @@ export default function Home() {
               priority
               quality={100}
               unoptimized
-              className="object-contain object-center"
+              className="object-contain object-center drop-shadow-sm"
             />
           </div>
+        </div>
+
+        {/* Floating High-Fashion Editorial Spec Badges */}
+        <div className="absolute bottom-32 left-12 hidden lg:flex items-center space-x-3 px-4 py-2 rounded-full border border-black/15 bg-white/80 backdrop-blur-md shadow-xs z-30 pointer-events-none">
+          <span className="h-2 w-2 rounded-full bg-black animate-pulse" />
+          <span className="text-[10px] font-mono font-bold tracking-widest text-black/80 uppercase">
+            HEIGHT: 6'1" // TOKYO • PARIS • NYC
+          </span>
+        </div>
+
+        <div className="absolute top-36 right-16 hidden lg:flex items-center space-x-3 px-4 py-2 rounded-full border border-black/15 bg-white/80 backdrop-blur-md shadow-xs z-30 pointer-events-none">
+          <span className="text-[10px] font-mono font-bold tracking-widest text-black/80 uppercase">
+            EDITORIAL COLLECTION 01 // 2026
+          </span>
         </div>
 
         {/* Middle Content Overlay Grid */}
@@ -130,29 +148,51 @@ export default function Home() {
         </div>
       </section>
 
+      {/* CONTINUOUS HIGH FASHION EDITORIAL MARQUEE TICKER */}
+      <div className="relative z-20 py-3.5 bg-gray-100 border-y border-black/10 overflow-hidden whitespace-nowrap select-none">
+        <div className="inline-flex space-x-8 text-xs font-mono font-bold uppercase tracking-[0.25em] text-black/70 animate-marquee">
+          <span>HIGH FASHION AGENCY</span>
+          <span>•</span>
+          <span>LUXURY TALENT MANAGEMENT</span>
+          <span>•</span>
+          <span>TOKYO // PARIS // NEW YORK // MILAN</span>
+          <span>•</span>
+          <span>STRIPE CONNECT ESCROW</span>
+          <span>•</span>
+          <span>VERIFIED PORTFOLIOS</span>
+          <span>•</span>
+          <span>HIGH FASHION AGENCY</span>
+          <span>•</span>
+          <span>LUXURY TALENT MANAGEMENT</span>
+          <span>•</span>
+          <span>TOKYO // PARIS // NEW YORK // MILAN</span>
+          <span>•</span>
+        </div>
+      </div>
+
       {/* FUTURISTIC LIVE METRICS METROPOLIS TICKER */}
-      <section className="relative z-20 py-6 bg-black text-white border-y border-white/10">
+      <section className="relative z-20 py-8 bg-black text-white border-b border-white/10">
         <div className="max-w-7xl mx-auto px-8 lg:px-16 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1">
-            <p className="text-2xl md:text-3xl font-extrabold font-['Syne']">1,200+</p>
+            <p className="text-2xl md:text-4xl font-extrabold font-['Syne'] text-white">1,200+</p>
             <p className="text-[10px] font-mono uppercase tracking-widest text-white/50">APPROVED TALENT</p>
           </div>
           <div className="space-y-1">
-            <p className="text-2xl md:text-3xl font-extrabold font-['Syne']">$4.8M+</p>
+            <p className="text-2xl md:text-4xl font-extrabold font-['Syne'] text-white">$4.8M+</p>
             <p className="text-[10px] font-mono uppercase tracking-widest text-white/50">ESCROW SECURED</p>
           </div>
           <div className="space-y-1">
-            <p className="text-2xl md:text-3xl font-extrabold font-['Syne']">100%</p>
+            <p className="text-2xl md:text-4xl font-extrabold font-['Syne'] text-white">100%</p>
             <p className="text-[10px] font-mono uppercase tracking-widest text-white/50">STRIPE VERIFIED</p>
           </div>
           <div className="space-y-1">
-            <p className="text-2xl md:text-3xl font-extrabold font-['Syne']">4.95 ★</p>
+            <p className="text-2xl md:text-4xl font-extrabold font-['Syne'] text-white">4.95 ★</p>
             <p className="text-[10px] font-mono uppercase tracking-widest text-white/50">MUTUAL SATISFACTION</p>
           </div>
         </div>
       </section>
 
-      {/* FEATURED MODEL TALENT SPOTLIGHT (6 DISTINCT HIGH-FASHION MODELS) */}
+      {/* FEATURED MODEL TALENT SPOTLIGHT */}
       <section className="relative z-20 py-24 px-8 lg:px-16 bg-white border-b border-black/10">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/10 pb-6">
@@ -164,13 +204,22 @@ export default function Home() {
                 FEATURED ROSTER
               </h2>
             </div>
-            <Link
-              href="/client/models"
-              className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-black border-b border-black hover:opacity-70 mt-4 md:mt-0"
-            >
-              <span>VIEW ALL TALENT</span>
-              <span>&rarr;</span>
-            </Link>
+
+            {/* Editorial Category Filter Chips */}
+            <div className="flex flex-wrap gap-2 mt-4 md:mt-0 text-[11px] font-bold uppercase tracking-wider">
+              <Link href="/client/models" className="px-4 py-1.5 bg-black text-white rounded-full">
+                All Roster
+              </Link>
+              <Link href="/client/models" className="px-4 py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white transition-all">
+                High Fashion
+              </Link>
+              <Link href="/client/models" className="px-4 py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white transition-all">
+                Runway
+              </Link>
+              <Link href="/client/models" className="px-4 py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white transition-all">
+                Editorial
+              </Link>
+            </div>
           </div>
 
           {/* Model Cards Grid */}
