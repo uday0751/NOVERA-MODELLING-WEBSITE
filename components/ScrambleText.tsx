@@ -1,212 +1,204 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 
-/** Configurable Constants at top of file for easy tuning */
-export const DEFAULT_SCRAMBLE_CONFIG = {
-  CHARACTER_SET: '0123456789#$%&*',
-  CYCLES_PER_CHAR: 10,
-  CYCLE_SPEED_MS: 40,
-  STAGGER_CHAR_MS: 25,
-  STAGGER_LINE_MS: 200,
-  SHINE_COLOR: 'rgba(255, 255, 255, 0.25)',
-  SHINE_OPACITY: 0.18,
-  SHINE_ANGLE: '115deg',
-  SHINE_WIDTH: '300px',
-  SHINE_DURATION: 1.8,
+/** CONFIGURABLE CONSTANTS AT TOP OF FILE */
+export const SCRAMBLE_DEFAULTS = {
+  CHARACTER_SET: '0123456789#$%&*+=',
+  CHAR_DURATION: 0.5,
+  STAGGER_PER_CHAR: 0.025,
+  STAGGER_PER_LINE: 0.18,
+  EASE: 'power2.out',
 };
 
 export interface ScrambleTextProps {
   text: string;
   trigger?: 'onMount' | 'onScroll';
   scrambleCharacterSet?: string;
-  cyclesPerCharacter?: number;
-  cycleSpeedMs?: number;
-  staggerPerCharacterMs?: number;
-  staggerPerLineMs?: number;
-  shineColor?: string;
-  shineOpacity?: number;
-  shineAngle?: string;
-  shineWidth?: string;
-  shineDuration?: number;
+  charDuration?: number;
+  staggerPerChar?: number;
+  staggerPerLine?: number;
+  ease?: string;
   className?: string;
 }
 
 export function ScrambleText({
   text,
   trigger = 'onScroll',
-  scrambleCharacterSet = DEFAULT_SCRAMBLE_CONFIG.CHARACTER_SET,
-  cyclesPerCharacter = DEFAULT_SCRAMBLE_CONFIG.CYCLES_PER_CHAR,
-  cycleSpeedMs = DEFAULT_SCRAMBLE_CONFIG.CYCLE_SPEED_MS,
-  staggerPerCharacterMs = DEFAULT_SCRAMBLE_CONFIG.STAGGER_CHAR_MS,
-  staggerPerLineMs = DEFAULT_SCRAMBLE_CONFIG.STAGGER_LINE_MS,
-  shineColor = DEFAULT_SCRAMBLE_CONFIG.SHINE_COLOR,
-  shineOpacity = DEFAULT_SCRAMBLE_CONFIG.SHINE_OPACITY,
-  shineAngle = DEFAULT_SCRAMBLE_CONFIG.SHINE_ANGLE,
-  shineWidth = DEFAULT_SCRAMBLE_CONFIG.SHINE_WIDTH,
-  shineDuration = DEFAULT_SCRAMBLE_CONFIG.SHINE_DURATION,
+  scrambleCharacterSet = SCRAMBLE_DEFAULTS.CHARACTER_SET,
+  charDuration = SCRAMBLE_DEFAULTS.CHAR_DURATION,
+  staggerPerChar = SCRAMBLE_DEFAULTS.STAGGER_PER_CHAR,
+  staggerPerLine = SCRAMBLE_DEFAULTS.STAGGER_PER_LINE,
+  ease = SCRAMBLE_DEFAULTS.EASE,
   className = '',
 }: ScrambleTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const shineRef = useRef<HTMLDivElement>(null);
-  const hasAnimatedRef = useRef<boolean>(false);
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const hasTriggeredRef = useRef<boolean>(false);
 
-  // Split text into lines, then characters
   const lines = text.split('\n');
-
-  // Track displayed text state per character slot
-  const [displayText, setDisplayText] = useState<string[][]>(() =>
-    lines.map((line) =>
-      line.split('').map((char) => (char === ' ' ? ' ' : scrambleCharacterSet[0]))
-    )
-  );
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // 1. Accessibility Check: Skip animation if OS prefers reduced motion
+    // Accessibility check: OS reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      setDisplayText(lines.map((line) => line.split('')));
+      spanRefs.current.forEach((span) => {
+        if (span && span.dataset.finalChar) {
+          span.textContent = span.dataset.finalChar;
+        }
+      });
       return;
     }
 
-    const startAnimation = () => {
-      if (hasAnimatedRef.current) return;
-      hasAnimatedRef.current = true;
+    const runAnimation = () => {
+      if (hasTriggeredRef.current) return;
+      hasTriggeredRef.current = true;
 
-      // 2. Animate Background Glass Light Sweep
-      if (shineRef.current) {
-        gsap.fromTo(
-          shineRef.current,
-          { xPercent: -100, opacity: 0 },
-          {
-            xPercent: 200,
-            opacity: shineOpacity,
-            duration: shineDuration,
-            ease: 'power2.inOut',
-          }
-        );
+      if (timelineRef.current) {
+        timelineRef.current.kill();
       }
 
-      // 3. Manual Scramble/Decode Execution Engine
-      let totalIndex = 0;
+      // GSAP Master Timeline (Frame-synced via requestAnimationFrame)
+      const masterTimeline = gsap.timeline();
 
-      lines.forEach((line, lineIndex) => {
-        const lineOffsetMs = lineIndex * staggerPerLineMs;
+      lines.forEach((line, lineIdx) => {
+        const lineStartTime = lineIdx * staggerPerLine;
+        const lineSpans: { span: HTMLSpanElement; finalChar: string }[] = [];
 
-        line.split('').forEach((finalChar, charIndex) => {
-          const charIndexInLine = charIndex;
-          totalIndex++;
+        spanRefs.current.forEach((span) => {
+          if (span && span.dataset.lineIdx === String(lineIdx) && span.dataset.finalChar) {
+            lineSpans.push({
+              span,
+              finalChar: span.dataset.finalChar,
+            });
+          }
+        });
+
+        lineSpans.forEach((item, charIdx) => {
+          const { span, finalChar } = item;
 
           // Keep spaces and punctuation un-scrambled
           if (finalChar === ' ' || !/[a-zA-Z0-9—]/.test(finalChar)) {
-            setDisplayText((prev) => {
-              const updated = prev.map((l) => [...l]);
-              updated[lineIndex][charIndexInLine] = finalChar;
-              return updated;
-            });
+            span.textContent = finalChar;
             return;
           }
 
-          const startDelay = lineOffsetMs + charIndexInLine * staggerPerCharacterMs;
+          const proxy = { progress: 0 };
+          let prevChar = '';
 
-          // Delay before this character begins scrambling
-          setTimeout(() => {
-            let cycleCount = 0;
+          masterTimeline.to(
+            proxy,
+            {
+              progress: 1,
+              duration: charDuration,
+              ease: ease,
+              onUpdate: () => {
+                if (proxy.progress >= 1) {
+                  span.textContent = finalChar;
+                } else {
+                  // Pick a random char that is NOT equal to the previous one
+                  let nextChar =
+                    scrambleCharacterSet[
+                      Math.floor(Math.random() * scrambleCharacterSet.length)
+                    ];
+                  while (nextChar === prevChar && scrambleCharacterSet.length > 1) {
+                    nextChar =
+                      scrambleCharacterSet[
+                        Math.floor(Math.random() * scrambleCharacterSet.length)
+                      ];
+                  }
+                  prevChar = nextChar;
 
-            const intervalId = setInterval(() => {
-              cycleCount++;
-
-              if (cycleCount >= cyclesPerCharacter) {
-                // Lock in final character
-                clearInterval(intervalId);
-                setDisplayText((prev) => {
-                  const updated = prev.map((l) => [...l]);
-                  updated[lineIndex][charIndexInLine] = finalChar;
-                  return updated;
-                });
-              } else {
-                // Cycle through random characters from character set
-                const randomChar =
-                  scrambleCharacterSet[
-                    Math.floor(Math.random() * scrambleCharacterSet.length)
-                  ];
-
-                setDisplayText((prev) => {
-                  const updated = prev.map((l) => [...l]);
-                  updated[lineIndex][charIndexInLine] = randomChar;
-                  return updated;
-                });
-              }
-            }, cycleSpeedMs);
-          }, startDelay);
+                  // IMPERATIVE DIRECT DOM UPDATE (Zero React state re-renders)
+                  span.textContent = nextChar;
+                }
+              },
+              onComplete: () => {
+                span.textContent = finalChar;
+              },
+            },
+            lineStartTime + charIdx * staggerPerChar
+          );
         });
       });
+
+      timelineRef.current = masterTimeline;
     };
 
     if (trigger === 'onMount') {
-      startAnimation();
+      runAnimation();
     } else {
-      // IntersectionObserver for trigger="onScroll"
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            startAnimation();
+            runAnimation();
             observer.disconnect();
           }
         },
-        { threshold: 0.2 }
+        { threshold: 0.3 }
       );
 
       observer.observe(containerRef.current);
 
-      return () => observer.disconnect();
+      return () => {
+        observer.disconnect();
+        if (timelineRef.current) {
+          timelineRef.current.kill();
+        }
+      };
     }
+
+    return () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+      }
+    };
   }, [
     text,
     trigger,
     scrambleCharacterSet,
-    cyclesPerCharacter,
-    cycleSpeedMs,
-    staggerPerCharacterMs,
-    staggerPerLineMs,
-    shineDuration,
-    shineOpacity,
+    charDuration,
+    staggerPerChar,
+    staggerPerLine,
+    ease,
   ]);
+
+  let globalCharIndex = 0;
 
   return (
     <div
       ref={containerRef}
       className={`relative inline-block overflow-hidden py-1 ${className}`}
     >
-      {/* SOFT DIAGONAL BACKGROUND LIGHT SWEEP */}
-      <div
-        ref={shineRef}
-        style={{
-          background: `linear-gradient(${shineAngle}, transparent 0%, ${shineColor} 50%, transparent 100%)`,
-          width: shineWidth,
-        }}
-        className="absolute inset-y-0 -left-full z-0 pointer-events-none blur-md transform -skew-x-12"
-      />
-
-      {/* SCRAMBLE/DECODE TEXT DISPLAY */}
       <div className="relative z-10 space-y-1">
-        {displayText.map((lineChars, lIdx) => (
+        {lines.map((line, lIdx) => (
           <div key={`line-${lIdx}`} className="leading-relaxed">
-            {lineChars.map((char, cIdx) => (
-              <span
-                key={`char-${lIdx}-${cIdx}`}
-                className={
-                  lines[lIdx][cIdx] !== char
-                    ? 'font-mono text-black/70 font-bold'
-                    : 'transition-colors duration-150'
-                }
-              >
-                {char}
-              </span>
-            ))}
+            {line.split('').map((char, cIdx) => {
+              const refIdx = globalCharIndex++;
+              const isSpecial = char === ' ' || !/[a-zA-Z0-9—]/.test(char);
+
+              return (
+                <span
+                  key={`c-${lIdx}-${cIdx}`}
+                  ref={(el) => {
+                    spanRefs.current[refIdx] = el;
+                  }}
+                  data-line-idx={lIdx}
+                  data-final-char={char}
+                  className={
+                    isSpecial
+                      ? 'inline'
+                      : 'inline-block font-mono tabular-nums min-w-[1ch] text-center'
+                  }
+                >
+                  {isSpecial ? char : scrambleCharacterSet[0]}
+                </span>
+              );
+            })}
           </div>
         ))}
       </div>
