@@ -126,12 +126,8 @@ export default function Home() {
           {/* Center Space framing upper body */}
           <div className="hidden md:block md:col-span-4" />
 
-          {/* Right Block: Tagline, Hanging Board & 3D Interactive Badge (Positioned in Open Free Space) */}
+          {/* Right Block: Hanging Board & 3D Interactive Badge (Positioned in Open Free Space) */}
           <div className="md:col-span-3 text-right flex flex-col justify-end items-end space-y-6 relative z-40">
-            <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-black/60 leading-tight">
-              FASHION WITHOUT <br />
-              THE SHOUT
-            </p>
 
             {/* HANGING BLACK BOARD SIGNBOARD WITH FRAMER MOTION 3D SWAY & FUNKY TEXT */}
             <HangingBoard />
