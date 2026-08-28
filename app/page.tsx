@@ -44,21 +44,21 @@ export default function Home() {
         </div>
       </header>
 
-      {/* GSAP SCROLL-DRIVEN IMAGE REVEAL WRAPPING HERO AND NEXT SECTION */}
+      {/* GSAP SINGLE TIMELINE SCROLL-DRIVEN IMAGE REVEAL */}
       <ScrollImageReveal
         imageSrc="/full-length-model.png"
-        revealMode="pinned"
         heroCropBottomPercent={55}
         nextSectionCropPercent={100}
         scaleDrift={1.03}
         rotationDrift={1}
+        revealMode="pinned"
         heroContent={
           <>
             {/* Middle Content Overlay Grid */}
             <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto pt-6">
               {/* Left Block: Quote & Action Button */}
               <div className="md:col-span-5 space-y-6 max-w-md">
-                <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95 mix-blend-difference">
+                <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
                   ALVORE IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
                 </p>
 
@@ -88,10 +88,10 @@ export default function Home() {
             {/* Hero Section Bottom Bar & Scroll Indicator */}
             <div className="pt-6 border-t border-black/10 flex justify-between items-center mt-auto">
               <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                PAGE 01 // WAIST LOOK
+                PAGE 01 // HEAD TO WAIST
               </span>
               <div className="flex items-center space-x-2 text-xs font-mono font-bold tracking-widest text-black/70 animate-bounce">
-                <span>SCROLL DOWN FOR GSAP REVEAL</span>
+                <span>SCROLL DOWN FOR FULL LOOK REVEAL</span>
                 <span>↓</span>
               </div>
             </div>
@@ -99,17 +99,17 @@ export default function Home() {
         }
         nextSectionContent={
           <>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto py-12">
               {/* Left Column Accent */}
               <div className="md:col-span-4 space-y-4 max-w-sm">
                 <span className="text-xs font-mono font-bold text-black/40 tracking-widest uppercase">
                   EDITORIAL DETAILS // LOOK 02
                 </span>
                 <h2 className="text-2xl md:text-4xl font-extrabold font-['Syne'] uppercase text-black">
-                  FULL-LENGTH REVEAL
+                  FULL-LENGTH SILHOUETTE
                 </h2>
                 <p className="text-xs text-gray-700 leading-relaxed font-medium">
-                  GSAP ScrollTrigger scroll-linked reveal uncovering tailored wide-leg trousers, belt lanyard, and chunky boots.
+                  Tailored wide-leg trousers with accent red lanyard, belted waist, and heavy chunky boots. Complete presentation of high-fashion proportions.
                 </p>
               </div>
 
@@ -128,12 +128,12 @@ export default function Home() {
             </div>
 
             {/* Next Section Bottom Bar */}
-            <div className="pt-6 border-t border-black/10 flex justify-between items-center mt-auto">
+            <div className="pt-6 border-t border-black/10 flex justify-between items-center mt-auto pb-6">
               <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                PAGE 02 // FULL REVEAL
+                PAGE 02 // PANTS & BOOTS REVEALED
               </span>
               <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                GSAP SCROLLTRIGGER ENGINE
+                GSAP TIMELINE ENGINE
               </span>
             </div>
           </>
