@@ -5,11 +5,17 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-white text-black font-['Outfit'] selection:bg-black selection:text-white">
       
-      {/* 3x3 ARCHITECTURAL GRID OVERLAY */}
+      {/* 3x3 ARCHITECTURAL GRID OVERLAY WITH EXPLICIT RECONCILIATION KEYS */}
       <div className="architectural-grid-white z-10 pointer-events-none">
-        <div /><div /><div />
-        <div /><div /><div />
-        <div /><div /><div />
+        <div key="cell-1" />
+        <div key="cell-2" />
+        <div key="cell-3" />
+        <div key="cell-4" />
+        <div key="cell-5" />
+        <div key="cell-6" />
+        <div key="cell-7" />
+        <div key="cell-8" />
+        <div key="cell-9" />
       </div>
 
       {/* FIXED HEADER NAVBAR */}
