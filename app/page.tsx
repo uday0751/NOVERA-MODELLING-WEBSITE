@@ -14,7 +14,7 @@ export default function Home() {
       {/* HEADER NAVBAR */}
       <header className="relative z-30 px-8 lg:px-16 py-6 flex items-center justify-between border-b border-black/10">
         <Link href="/" className="font-['Syne'] font-extrabold text-xl tracking-wider text-black">
-          ALVORE
+          NOVERA
         </Link>
 
         {/* Center Navigation Links */}
@@ -50,15 +50,15 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION WITH USER'S EXACT HIGH-DEFINITION IMAGE AS-IS */}
+      {/* HERO SECTION WITH CLEAN MODEL PHOTO & REAL HTML/CSS TEXT */}
       <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-between px-8 lg:px-16 pt-8 pb-12 overflow-hidden bg-white">
         
-        {/* Full-HD Exact User Image Container */}
+        {/* Full-HD Clean Model Image (No Baked Text) */}
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none p-4 md:p-8">
-          <div className="relative w-full max-w-6xl h-full min-h-[600px] md:min-h-[750px]">
+          <div className="relative w-full max-w-5xl h-full min-h-[550px] md:min-h-[700px]">
             <Image
-              src="/speak-alvore-hero.png"
-              alt="SPEAK ALVORE High Fashion Editorial"
+              src="/full-hd-model.png"
+              alt="NOVERA High Fashion Editorial Model"
               fill
               priority
               quality={100}
@@ -74,7 +74,7 @@ export default function Home() {
           {/* Left Block: Clean Middle Text Placement */}
           <div className="md:col-span-5 space-y-6 max-w-md">
             <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95 drop-shadow-xs">
-              ALVORE IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
+              NOVERA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
             </p>
 
             <div className="pt-2">
@@ -100,13 +100,20 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Bottom Spacer preserving image bottom headline area */}
-        <div className="relative z-20 pt-8 border-t border-black/10 flex justify-between items-center mt-auto">
+        {/* BOTTOM HEADLINE IN REAL VECTOR HTML TEXT */}
+        <div className="relative z-20 pt-6 pb-2 text-center">
+          <h1 className="text-5xl sm:text-7xl md:text-[9.2vw] font-extrabold uppercase tracking-tighter text-black leading-none select-none font-['Syne']">
+            SPEAK NOVERA
+          </h1>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="relative z-20 pt-4 border-t border-black/10 flex justify-between items-center">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            ALVORE EDITORIAL // 2026
+            NOVERA EDITORIAL // 2026
           </span>
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            FULL HD QUALITY PRESERVED
+            VECTOR TYPOGRAPHY RENDERED
           </span>
         </div>
       </section>
@@ -205,7 +212,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="relative z-20 py-8 px-8 lg:px-16 border-t border-black/10 text-xs text-black/60 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
         <div>
-          <span className="font-['Syne'] font-bold text-black">ALVORE AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
+          <span className="font-['Syne'] font-bold text-black">NOVERA AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
         </div>
         <div className="flex space-x-6">
           <Link href="/client/models" className="hover:text-black">Models</Link>
