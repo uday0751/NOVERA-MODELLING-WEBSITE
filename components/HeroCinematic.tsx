@@ -227,10 +227,7 @@ export function HeroCinematic() {
         </div>
 
         {/* Hero Section Bottom Bar (z-30) */}
-        <div ref={bottomBarRef} className="relative z-30 pt-6 mt-auto border-t border-black/10 flex justify-between items-center">
-          <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            NOVARA EDITORIAL // 2026
-          </span>
+        <div ref={bottomBarRef} className="relative z-30 pt-6 mt-auto border-t border-black/10 flex justify-end items-center">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             HIGH FASHION AGENCY
           </span>
