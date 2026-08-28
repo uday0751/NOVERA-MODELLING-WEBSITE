@@ -24,8 +24,8 @@ export function ScrollImageReveal({
   imageSrc = '/full-length-model.png',
   heroContent,
   nextSectionContent,
-  scaleDrift = 1.03,
-  rotationDrift = 1,
+  scaleDrift = 1.02,
+  rotationDrift = 0.5,
   className = '',
 }: ScrollImageRevealProps) {
   const pinSectionRef = useRef<HTMLDivElement>(null);
@@ -41,8 +41,7 @@ export function ScrollImageReveal({
     if (prefersReducedMotion) return;
 
     const ctx = gsap.context(() => {
-      // SINGLE GSAP TIMELINE TIED TO SCROLLTRIGGER PIN
-      // end: '+=100%' pins for exactly one viewport height of scroll distance
+      // SINGLE GSAP TIMELINE TIED TO SCROLLTRIGGER PIN WITH FLUID 120FPS SMOOTHNESS
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: pinSectionRef.current,
@@ -50,7 +49,10 @@ export function ScrollImageReveal({
           end: '+=100%',
           pin: true,
           pinSpacing: true,
-          scrub: 1, // Smooth scrub lag
+          scrub: 0.5, // Responsive, fluid 0.5s scrub curve (eliminates rubber-band lag)
+          anticipatePin: 1, // Prevents layout snapping at pin entry
+          fastScrollEnd: true,
+          preventOverlaps: true,
           invalidateOnRefresh: true,
         },
       });
@@ -62,35 +64,35 @@ export function ScrollImageReveal({
           y: '-100vh',
           scale: scaleDrift,
           rotate: rotationDrift,
-          ease: 'none',
+          ease: 'power1.out', // Smooth motion easing
         },
         0
       );
 
-      // 2. Hero content fades OUT during first half of scroll progress (0% -> 50%)
+      // 2. Hero content fades OUT smoothly during first half of scroll progress (0% -> 50%)
       if (heroContentRef.current) {
         tl.to(
           heroContentRef.current,
           {
             opacity: 0,
-            y: -50,
-            ease: 'power1.inOut',
+            y: -40,
+            ease: 'power1.out',
           },
           0
         );
       }
 
-      // 3. Next section content fades IN during second half of scroll progress (50% -> 100%)
+      // 3. Next section content fades IN smoothly during second half of scroll progress (50% -> 100%)
       if (nextContentRef.current) {
         // Set initial hidden state
-        gsap.set(nextContentRef.current, { opacity: 0, y: 50 });
+        gsap.set(nextContentRef.current, { opacity: 0, y: 40 });
 
         tl.to(
           nextContentRef.current,
           {
             opacity: 1,
             y: 0,
-            ease: 'power1.inOut',
+            ease: 'power1.out',
           },
           0.5 // Starts at midpoint of 100% pin scroll
         );
@@ -112,10 +114,10 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE CONTAINER (RAW UNCOMPRESSED NATIVE SHARPNESS) */}
+      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE CONTAINER (GPU HARDWARE ACCELERATED) */}
       <div
         ref={imageRef}
-        className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform"
+        className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform [transform:translateZ(0)]"
       >
         {/* Source image must stay at or above ~1900px width / 3000px height to avoid upscaling blur when object-fit: cover stretches it to 200vh height on large screens. If replacing this file in the future, keep resolution at or above this size. */}
         <img
@@ -126,7 +128,7 @@ export function ScrollImageReveal({
           style={{
             objectFit: 'cover',
             objectPosition: 'center top',
-            imageRendering: '-webkit-optimize-contrast',
+            imageRendering: '-webkit-optimize-contrast' as any,
           }}
           className="w-full h-[200vh] object-cover object-top"
         />
