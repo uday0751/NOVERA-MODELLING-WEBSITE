@@ -187,11 +187,11 @@ export function HeroCinematic() {
           </div>
         </div>
 
-        {/* MASSIVE TYPOGRAPHY (z-25) — SPEAK ALVORE (HIGH VISIBILITY OVERLAY) */}
-        <div className="absolute inset-x-0 bottom-12 z-25 flex justify-center pointer-events-none text-center w-full px-2">
+        {/* MASSIVE TYPOGRAPHY (z-30) — SPEAK ALVORE WITH DYNAMIC MIX-BLEND DIFFERENCE */}
+        <div className="absolute inset-x-0 bottom-12 z-30 flex justify-center pointer-events-none text-center w-full px-2">
           <h1
             ref={headlineRef}
-            className="text-[12.5vw] md:text-[13.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-black select-none whitespace-nowrap drop-shadow-md"
+            className="text-[12.5vw] md:text-[13.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
           >
             SPEAK ALVORE
           </h1>
