@@ -132,14 +132,44 @@ export default function Home() {
               THE SHOUT
             </p>
 
-            {/* STYLISH ANIMATED STYLING QUOTE */}
-            <div className="py-2 px-3 border-r-2 border-black/80 bg-white/60 backdrop-blur-xs text-right max-w-[240px]">
-              <ScrambleText
-                text="STYLE IS A WAY TO SAY WHO YOU ARE WITHOUT HAVING TO SPEAK"
-                trigger="onMount"
-                staggerPerCharacterMs={30}
-                className="font-serif italic text-xs md:text-sm text-black/90 font-normal tracking-wide leading-snug"
-              />
+            {/* HANGING BLACK BOARD SIGNBOARD WITH WHITE TEXT & BLACK HANGING WIRES */}
+            <div className="relative pt-4 flex flex-col items-end">
+              {/* Black Hanging Wires / Ropes connected to top boundary */}
+              <div className="absolute -top-6 right-6 flex space-x-24 pointer-events-none z-10">
+                {/* Left Wire & Top Hanging Ring */}
+                <div className="flex flex-col items-center">
+                  <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-2xs" />
+                  <div className="w-[1.5px] h-6 bg-black" />
+                </div>
+                {/* Right Wire & Top Hanging Ring */}
+                <div className="flex flex-col items-center">
+                  <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-2xs" />
+                  <div className="w-[1.5px] h-6 bg-black" />
+                </div>
+              </div>
+
+              {/* Hanging Dark Luxury Blackboard */}
+              <div className="relative mt-2 px-5 py-4 rounded-2xl bg-[#111111] text-white border border-white/15 shadow-2xl max-w-[260px] text-right group hover:scale-[1.02] transition-transform duration-300">
+                {/* Metallic Eyelet Corner Rivets */}
+                <div className="absolute -top-1.5 left-5 w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600 flex items-center justify-center shadow-xs">
+                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                </div>
+                <div className="absolute -top-1.5 right-5 w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600 flex items-center justify-center shadow-xs">
+                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
+                </div>
+
+                {/* White Texting inside Black Board */}
+                <p className="text-[9px] font-mono tracking-widest text-white/40 uppercase mb-1">
+                  EDITORIAL // QUOTE
+                </p>
+                <ScrambleText
+                  text="STYLE IS A WAY TO SAY WHO YOU ARE WITHOUT HAVING TO SPEAK"
+                  trigger="onMount"
+                  staggerPerCharacterMs={25}
+                  shineColor="rgba(255, 255, 255, 0.4)"
+                  className="font-serif italic text-xs md:text-sm text-white font-normal tracking-wide leading-snug drop-shadow-xs"
+                />
+              </div>
             </div>
 
             {/* FRAMER MOTION & GSAP 3D INTERACTIVE BADGE */}

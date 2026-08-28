@@ -213,7 +213,7 @@ export function ScrambleText({
                 key={`char-${lIdx}-${cIdx}`}
                 className={
                   lines[lIdx][cIdx] !== char
-                    ? 'font-mono text-black/70 font-bold'
+                    ? 'font-mono opacity-70 font-bold'
                     : 'transition-colors duration-150'
                 }
               >
