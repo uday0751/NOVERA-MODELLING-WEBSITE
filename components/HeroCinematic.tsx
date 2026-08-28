@@ -172,17 +172,7 @@ export function HeroCinematic() {
         {/* Soft Ambient Glow Halo behind hero model */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-gray-200/50 via-gray-100/30 to-transparent rounded-full blur-3xl pointer-events-none z-0" />
 
-        {/* MASSIVE TYPOGRAPHY (z-10) — SPEAK ALVORE */}
-        <div className="absolute inset-x-0 bottom-16 z-10 flex justify-center pointer-events-none text-center w-full px-2">
-          <h1
-            ref={headlineRef}
-            className="text-[13.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-black/90 select-none whitespace-nowrap drop-shadow-sm"
-          >
-            SPEAK ALVORE
-          </h1>
-        </div>
-
-        {/* MODEL REVEAL IMAGE (z-20) — OVERLAPS SPEAK ALVORE */}
+        {/* MODEL REVEAL IMAGE (z-20) */}
         <div ref={modelRef} className="absolute inset-0 z-20 flex justify-center pointer-events-none p-4 md:p-8">
           <div className="relative w-full max-w-5xl h-full">
             <Image
@@ -195,6 +185,16 @@ export function HeroCinematic() {
               className="object-contain object-center drop-shadow-md"
             />
           </div>
+        </div>
+
+        {/* MASSIVE TYPOGRAPHY (z-25) — SPEAK ALVORE (HIGH VISIBILITY OVERLAY) */}
+        <div className="absolute inset-x-0 bottom-12 z-25 flex justify-center pointer-events-none text-center w-full px-2">
+          <h1
+            ref={headlineRef}
+            className="text-[12.5vw] md:text-[13.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-black select-none whitespace-nowrap drop-shadow-md"
+          >
+            SPEAK ALVORE
+          </h1>
         </div>
 
         {/* Floating High-Fashion Editorial Spec Badges (z-30) */}
