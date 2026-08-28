@@ -111,16 +111,16 @@ export default function Home() {
             NOVERA EDITORIAL // 2026
           </span>
 
-          {/* ANIMATED HIGH FASHION AGENCY LUXURY BADGE */}
-          <div className="group relative inline-flex items-center space-x-2.5 px-5 py-2.5 rounded-full border border-black/15 bg-white/90 backdrop-blur-md shadow-xs transition-all duration-500 hover:border-black hover:shadow-md cursor-pointer overflow-hidden">
+          {/* ANIMATED HIGH FASHION AGENCY LUXURY BADGE (SCALED DOWN 1 SIZE) */}
+          <div className="group relative inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-black/15 bg-white/90 backdrop-blur-md shadow-2xs transition-all duration-500 hover:border-black hover:shadow-xs cursor-pointer overflow-hidden">
             {/* Pulsing Live Status Dot */}
-            <span className="relative flex h-2 w-2">
+            <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-black" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black" />
             </span>
 
             {/* High Fashion Agency Text with Syne font, tracking animation and shimmer sweep */}
-            <span className="font-['Syne'] text-[11px] font-extrabold uppercase tracking-[0.3em] text-black group-hover:tracking-[0.45em] transition-all duration-500">
+            <span className="font-['Syne'] text-[9px] md:text-[10px] font-extrabold uppercase tracking-[0.25em] text-black group-hover:tracking-[0.35em] transition-all duration-500">
               HIGH FASHION AGENCY
             </span>
 
