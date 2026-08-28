@@ -3,7 +3,6 @@
 // This uses ONE image scaled once via object-fit: cover at height: 200vh, then panned via translateY. Do not split this into two separate image files/containers — doing so causes each piece to be scaled independently, breaking visual continuity at the seam.
 
 import React, { useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -113,26 +112,23 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE CONTAINER */}
+      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE CONTAINER (RAW UNCOMPRESSED NATIVE SHARPNESS) */}
       <div
         ref={imageRef}
         className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform"
       >
         {/* Source image must stay at or above ~1900px width / 3000px height to avoid upscaling blur when object-fit: cover stretches it to 200vh height on large screens. If replacing this file in the future, keep resolution at or above this size. */}
-        <Image
+        <img
           src={imageSrc}
           alt="NOVERA Full Body High Fashion Editorial Model"
-          fill
-          priority
-          quality={100}
-          unoptimized
-          sizes="100vw"
+          decoding="sync"
+          loading="eager"
           style={{
             objectFit: 'cover',
             objectPosition: 'center top',
             imageRendering: '-webkit-optimize-contrast',
           }}
-          className="object-cover object-top"
+          className="w-full h-[200vh] object-cover object-top"
         />
       </div>
 
