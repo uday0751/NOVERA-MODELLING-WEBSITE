@@ -192,6 +192,217 @@ export default function Home() {
         </div>
       </section>
 
+      {/* NEW SECTION: LIVE CASTING CALLS & OPPORTUNITIES BOARD */}
+      <section className="relative z-20 py-24 px-8 lg:px-16 bg-white border-b border-black/10">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/10 pb-6">
+            <div>
+              <span className="text-xs font-mono font-bold tracking-widest uppercase text-black/40">
+                ACTIVE OPPORTUNITIES // REAL-TIME BOARD
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold font-['Syne'] uppercase tracking-tight text-black mt-2">
+                LIVE CASTING CALLS
+              </h2>
+            </div>
+            <Link
+              href="/casting-calls"
+              className="inline-flex items-center space-x-2 text-xs font-bold uppercase tracking-widest text-black border-b border-black hover:opacity-70 mt-4 md:mt-0"
+            >
+              <span>VIEW ALL CASTING CALLS</span>
+              <span>&rarr;</span>
+            </Link>
+          </div>
+
+          {/* Live Casting Calls Feed Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Casting Item 1 */}
+            <div className="p-8 rounded-2xl border border-black/10 bg-gray-50/50 hover:bg-white hover:border-black transition-all space-y-4 group shadow-2xs">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="px-3 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    HIGH FASHION
+                  </span>
+                  <h3 className="font-['Syne'] text-2xl font-extrabold uppercase text-black mt-3">
+                    Vogue Editorial Lookbook
+                  </h3>
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mt-1">Paris, France • Call Time: Sept 12</p>
+                </div>
+                <span className="text-sm font-mono font-extrabold text-black">$3,500 / DAY</span>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Seeking 2 female editorial models (5'10"+) for 2026 Autumn Couture print lookbook. Full wardrobe, makeup & styling provided.
+              </p>
+              <div className="pt-4 border-t border-black/10 flex justify-between items-center text-xs">
+                <span className="text-[10px] font-mono text-gray-400">CLOSES IN 2 DAYS</span>
+                <Link href="/casting-calls" className="font-bold uppercase tracking-wider text-black group-hover:translate-x-1 transition-transform">
+                  Apply for Casting &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* Casting Item 2 */}
+            <div className="p-8 rounded-2xl border border-black/10 bg-gray-50/50 hover:bg-white hover:border-black transition-all space-y-4 group shadow-2xs">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="px-3 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    RUNWAY COUTURE
+                  </span>
+                  <h3 className="font-['Syne'] text-2xl font-extrabold uppercase text-black mt-3">
+                    Balenciaga Winter Runway
+                  </h3>
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mt-1">New York, USA • Call Time: Sept 18</p>
+                </div>
+                <span className="text-sm font-mono font-extrabold text-black">$4,800 / DAY</span>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Male runway models (6'1"-6'3") for major fashion week runway presentation. Prior runway experience required.
+              </p>
+              <div className="pt-4 border-t border-black/10 flex justify-between items-center text-xs">
+                <span className="text-[10px] font-mono text-gray-400">CLOSES IN 4 DAYS</span>
+                <Link href="/casting-calls" className="font-bold uppercase tracking-wider text-black group-hover:translate-x-1 transition-transform">
+                  Apply for Casting &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* Casting Item 3 */}
+            <div className="p-8 rounded-2xl border border-black/10 bg-gray-50/50 hover:bg-white hover:border-black transition-all space-y-4 group shadow-2xs">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="px-3 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    COMMERCIAL
+                  </span>
+                  <h3 className="font-['Syne'] text-2xl font-extrabold uppercase text-black mt-3">
+                    Bvlgari Jewelry Campaign
+                  </h3>
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mt-1">Milan, Italy • Call Time: Sept 08</p>
+                </div>
+                <span className="text-sm font-mono font-extrabold text-black">$5,200 / DAY</span>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Commercial portrait modeling for high-jewelry print & billboard campaign. Must have clean hands and neck profile.
+              </p>
+              <div className="pt-4 border-t border-black/10 flex justify-between items-center text-xs">
+                <span className="text-[10px] font-mono text-gray-400">CLOSES TODAY</span>
+                <Link href="/casting-calls" className="font-bold uppercase tracking-wider text-black group-hover:translate-x-1 transition-transform">
+                  Apply for Casting &rarr;
+                </Link>
+              </div>
+            </div>
+
+            {/* Casting Item 4 */}
+            <div className="p-8 rounded-2xl border border-black/10 bg-gray-50/50 hover:bg-white hover:border-black transition-all space-y-4 group shadow-2xs">
+              <div className="flex justify-between items-start">
+                <div>
+                  <span className="px-3 py-1 bg-black text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    AVANT-GARDE
+                  </span>
+                  <h3 className="font-['Syne'] text-2xl font-extrabold uppercase text-black mt-3">
+                    Yohji Yamamoto Tokyo Show
+                  </h3>
+                  <p className="text-xs text-gray-500 font-medium uppercase tracking-wider mt-1">Tokyo, Japan • Call Time: Sept 22</p>
+                </div>
+                <span className="text-sm font-mono font-extrabold text-black">$2,900 / DAY</span>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Conceptual high-fashion show featuring avant-garde oversized silhouettes. Tokyo residency or available travel.
+              </p>
+              <div className="pt-4 border-t border-black/10 flex justify-between items-center text-xs">
+                <span className="text-[10px] font-mono text-gray-400">CLOSES IN 1 DAY</span>
+                <Link href="/casting-calls" className="font-bold uppercase tracking-wider text-black group-hover:translate-x-1 transition-transform">
+                  Apply for Casting &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW SECTION: MODEL PHYSICAL SPECS & STANDARDS MATRIX */}
+      <section className="relative z-20 py-24 px-8 lg:px-16 bg-gray-50 border-b border-black/10">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="border-b border-black/10 pb-6">
+            <span className="text-xs font-mono font-bold tracking-widest uppercase text-black/40">
+              EDITORIAL STANDARDS & VERIFICATION
+            </span>
+            <h2 className="text-3xl md:text-5xl font-extrabold font-['Syne'] uppercase tracking-tight text-black mt-2">
+              ROSTER SPECIFICATIONS
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="p-8 rounded-2xl bg-white border border-black/10 space-y-4">
+              <span className="text-xs font-mono font-bold text-black/40">STANDARDS // 01</span>
+              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">Male Roster Specs</h3>
+              <ul className="space-y-2 text-xs font-mono text-gray-600">
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>HEIGHT RANGE:</span>
+                  <span className="font-bold text-black">6'1" — 6'3"</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>WAIST SIZE:</span>
+                  <span className="font-bold text-black">30" — 32"</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>CHEST SIZE:</span>
+                  <span className="font-bold text-black">38" — 41"</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>SHOE SIZE:</span>
+                  <span className="font-bold text-black">EU 43 - 45</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-white border border-black/10 space-y-4">
+              <span className="text-xs font-mono font-bold text-black/40">STANDARDS // 02</span>
+              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">Female Roster Specs</h3>
+              <ul className="space-y-2 text-xs font-mono text-gray-600">
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>HEIGHT RANGE:</span>
+                  <span className="font-bold text-black">5'10" — 6'0"</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>WAIST SIZE:</span>
+                  <span className="font-bold text-black">23" — 25"</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>BUST SIZE:</span>
+                  <span className="font-bold text-black">33" — 35"</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>HIPS SIZE:</span>
+                  <span className="font-bold text-black">34" — 36"</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="p-8 rounded-2xl bg-white border border-black/10 space-y-4">
+              <span className="text-xs font-mono font-bold text-black/40">STANDARDS // 03</span>
+              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">Booking Rates</h3>
+              <ul className="space-y-2 text-xs font-mono text-gray-600">
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>EDITORIAL HOURLY:</span>
+                  <span className="font-bold text-black">$180 — $350 / HR</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>RUNWAY DAY RATE:</span>
+                  <span className="font-bold text-black">$2,500 — $5,000 / DAY</span>
+                </li>
+                <li className="flex justify-between py-1 border-b border-black/5">
+                  <span>COMMERCIAL BUYOUT:</span>
+                  <span className="font-bold text-black">CUSTOM CONTRACT</span>
+                </li>
+                <li className="flex justify-between py-1">
+                  <span>ESCROW PROTECTION:</span>
+                  <span className="font-bold text-emerald-600">STRIPE CONNECT</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FEATURED MODEL TALENT SPOTLIGHT */}
       <section className="relative z-20 py-24 px-8 lg:px-16 bg-white border-b border-black/10">
         <div className="max-w-7xl mx-auto space-y-12">
@@ -461,60 +672,54 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FUTURISTIC PLATFORM ECOSYSTEM SHOWCASE */}
-      <section className="relative z-20 py-24 px-8 lg:px-16 bg-gray-50 border-b border-black/10">
-        <div className="max-w-7xl mx-auto space-y-12">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/10 pb-6">
+      {/* NEW SECTION: HOW NOVARA WORKS (4-STEP AGENCY WORKFLOW) */}
+      <section className="relative z-20 py-24 px-8 lg:px-16 bg-black text-white">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="border-b border-white/10 pb-6 flex flex-col md:flex-row justify-between items-start md:items-end">
             <div>
-              <p className="text-xs font-mono tracking-widest uppercase text-black/50">DEVELOPED ARCHITECTURE</p>
-              <h2 className="text-3xl md:text-5xl font-extrabold font-['Syne'] uppercase tracking-tight text-black mt-1">
-                PLATFORM ECOSYSTEM
+              <span className="text-xs font-mono font-bold tracking-widest uppercase text-white/40">
+                AGENCY INFRASTRUCTURE
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold font-['Syne'] uppercase tracking-tight text-white mt-2">
+                HOW NOVARA OPERATES
               </h2>
             </div>
-            <p className="text-xs font-medium text-black/60 max-w-sm mt-2 md:mt-0">
-              End-to-end management solution for fashion talent, agency management, and enterprise brands.
+            <p className="text-xs text-white/60 max-w-sm mt-2 md:mt-0 font-medium">
+              Transparent escrow payments, verified physical measurements, and instant direct casting.
             </p>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="border border-black/10 p-8 rounded-2xl bg-white space-y-4 shadow-xs hover:shadow-xl transition-all group">
-              <span className="text-xs font-mono font-bold text-black/40 group-hover:text-black transition-colors">01 // CLIENT DISCOVERY</span>
-              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">
-                Model Search & Filter Engine
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Filter approved models by category (fashion, commercial, runway), height range, location, max hourly rate, and date availability. View full portfolio galleries, rates, and stats.
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div className="space-y-4 p-6 rounded-2xl border border-white/10 bg-white/5">
+              <span className="text-2xl font-extrabold font-['Syne'] text-white/30">01</span>
+              <h3 className="text-lg font-bold font-['Syne'] uppercase text-white">VERIFIED APPLICATION</h3>
+              <p className="text-xs text-white/60 leading-relaxed">
+                Talent completes a 6-step wizard logging physical measurements, comp card stats, and portfolio media.
               </p>
-              <Link href="/client/models" className="inline-block text-xs font-bold uppercase tracking-wider text-black border-b border-black hover:opacity-70 pt-2">
-                Browse Models Gallery &rarr;
-              </Link>
             </div>
 
-            <div className="border border-black/10 p-8 rounded-2xl bg-white space-y-4 shadow-xs hover:shadow-xl transition-all group">
-              <span className="text-xs font-mono font-bold text-black/40 group-hover:text-black transition-colors">02 // MODEL ONBOARDING</span>
-              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">
-                6-Step Onboarding Wizard
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Guided multi-step wizard collecting basic info, physical measurements (height, bust, waist, hips), portfolio media uploads to Supabase Storage, and rate cards. Progress saves incrementally.
+            <div className="space-y-4 p-6 rounded-2xl border border-white/10 bg-white/5">
+              <span className="text-2xl font-extrabold font-['Syne'] text-white/30">02</span>
+              <h3 className="text-lg font-bold font-['Syne'] uppercase text-white">DIRECT DISCOVERY</h3>
+              <p className="text-xs text-white/60 leading-relaxed">
+                Brands filter models by exact height, waist, location, date availability, and max hourly rates.
               </p>
-              <Link href="/model/onboarding" className="inline-block text-xs font-bold uppercase tracking-wider text-black border-b border-black hover:opacity-70 pt-2">
-                Launch Onboarding &rarr;
-              </Link>
             </div>
 
-            <div className="border border-black/10 p-8 rounded-2xl bg-white space-y-4 shadow-xs hover:shadow-xl transition-all group">
-              <span className="text-xs font-mono font-bold text-black/40 group-hover:text-black transition-colors">03 // BOOKINGS & ESCROW</span>
-              <h3 className="text-xl font-extrabold font-['Syne'] uppercase text-black">
-                Shortlists & Stripe Escrow
-              </h3>
-              <p className="text-xs text-gray-600 leading-relaxed">
-                Clients save models to personal shortlists and submit booking requests with Stripe Connect escrow. Automated payout releases upon booking completion and mutual reviews.
+            <div className="space-y-4 p-6 rounded-2xl border border-white/10 bg-white/5">
+              <span className="text-2xl font-extrabold font-['Syne'] text-white/30">03</span>
+              <h3 className="text-lg font-bold font-['Syne'] uppercase text-white">STRIPE ESCROW LOCK</h3>
+              <p className="text-xs text-white/60 leading-relaxed">
+                Booking funds are deposited securely into Stripe Connect escrow prior to call time.
               </p>
-              <Link href="/client/shortlist" className="inline-block text-xs font-bold uppercase tracking-wider text-black border-b border-black hover:opacity-70 pt-2">
-                View Shortlist & Portal &rarr;
-              </Link>
+            </div>
+
+            <div className="space-y-4 p-6 rounded-2xl border border-white/10 bg-white/5">
+              <span className="text-2xl font-extrabold font-['Syne'] text-white/30">04</span>
+              <h3 className="text-lg font-bold font-['Syne'] uppercase text-white">AUTOMATED PAYOUT</h3>
+              <p className="text-xs text-white/60 leading-relaxed">
+                Escrow funds release automatically to talent upon shoot completion and mutual review.
+              </p>
             </div>
           </div>
         </div>
