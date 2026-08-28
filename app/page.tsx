@@ -44,10 +44,10 @@ export default function Home() {
         </div>
       </header>
 
-      {/* GSAP STACKED TWO-IMAGE SCROLL-DRIVEN REVEAL */}
+      {/* GSAP PRE-ALIGNED TWO-CROP SCROLL-DRIVEN REVEAL */}
       <ScrollImageReveal
-        topImageSrc="/user-clean-hero.png"
-        bottomImageSrc="/full-length-model.png"
+        topImageSrc="/model-top.png"
+        bottomImageSrc="/model-bottom.png"
         scaleDrift={1.03}
         rotationDrift={1}
         heroContent={

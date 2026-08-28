@@ -1,5 +1,7 @@
 'use client';
 
+// topImageSrc and bottomImageSrc are two crops taken from the same single source photo, split at the same horizontal line (y=385px of 1024px, the belt), at the same image width (1536px). Do not substitute independently generated or photographed images here — they will not align at the seam.
+
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
@@ -11,11 +13,8 @@ if (typeof window !== 'undefined') {
 }
 
 export interface ScrollImageRevealProps {
-  topImageSrc?: string; // waist-up photo, e.g. "/user-clean-hero.png"
-  
-  // This must be a pre-cropped image containing only the lower body (waist down). Do not use the same full-body file as the hero image.
-  bottomImageSrc?: string; // lower-body photo, e.g. "/model-legs.png" or "/full-length-model.png"
-  
+  topImageSrc?: string; // waist-up photo, e.g. "/model-top.png"
+  bottomImageSrc?: string; // lower-body photo, e.g. "/model-bottom.png"
   heroContent?: React.ReactNode;
   nextSectionContent?: React.ReactNode;
   scaleDrift?: number;
@@ -24,8 +23,8 @@ export interface ScrollImageRevealProps {
 }
 
 export function ScrollImageReveal({
-  topImageSrc = '/user-clean-hero.png',
-  bottomImageSrc = '/full-length-model.png',
+  topImageSrc = '/model-top.png',
+  bottomImageSrc = '/model-bottom.png',
   heroContent,
   nextSectionContent,
   scaleDrift = 1.03,
@@ -117,12 +116,13 @@ export function ScrollImageReveal({
       </div>
 
       {/* TWO STACKED 100VH IMAGES INSIDE 200VH TRANSLATING CONTAINER */}
+      {/* These images are cropped from a wide source photo with extra whitespace on the sides — if the cover-fit zoom crops too tightly into the model, the fix is to re-crop the source image tighter around the model (not a CSS change). */}
       <div
         ref={translatingContainerRef}
-        className="absolute inset-x-0 top-0 z-0 h-[200vh] w-full pointer-events-none will-change-transform"
+        className="absolute inset-x-0 top-0 z-0 h-[200vh] w-full pointer-events-none will-change-transform flex flex-col"
       >
-        {/* TOP IMAGE (FIRST 100VH - WAIST UP PHOTO) */}
-        <div className="relative w-full h-[100vh] overflow-hidden [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+        {/* TOP IMAGE (FIRST 100VH - PRE-ALIGNED WAIST UP CROP) */}
+        <div className="relative w-full h-[100vh] overflow-hidden">
           <Image
             src={topImageSrc}
             alt="NOVERA Waist Up Editorial Model"
@@ -130,13 +130,13 @@ export function ScrollImageReveal({
             priority
             quality={100}
             unoptimized
+            style={{ objectFit: 'cover', objectPosition: 'center top' }}
             className="object-cover object-top"
           />
         </div>
 
-        {/* BOTTOM IMAGE (SECOND 100VH - LOWER BODY / LEGS & SHOES PHOTO) */}
-        {/* TEMP: This CSS crop is a stopgap. Replace bottomImageSrc with a properly pre-cropped lower-body-only image file for a cleaner, more reliable result. */}
-        <div className="relative w-full h-[100vh] overflow-hidden [mask-image:linear-gradient(to_top,black_85%,transparent_100%)]">
+        {/* BOTTOM IMAGE (SECOND 100VH - PRE-ALIGNED LOWER BODY CROP WITH ZERO GAP AT SEAM) */}
+        <div className="relative w-full h-[100vh] overflow-hidden">
           <Image
             src={bottomImageSrc}
             alt="NOVERA Lower Body Editorial Model"
@@ -144,7 +144,7 @@ export function ScrollImageReveal({
             priority
             quality={100}
             unoptimized
-            style={{ objectFit: 'cover', objectPosition: '50% 100%' }}
+            style={{ objectFit: 'cover', objectPosition: 'center bottom' }}
             className="object-cover object-bottom"
           />
         </div>
