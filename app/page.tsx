@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ThreeDBadge } from '@/components/ThreeDBadge';
 import { ScrambleText } from '@/components/ScrambleText';
+import { HangingBoard } from '@/components/HangingBoard';
 
 export default function Home() {
   return (
@@ -132,50 +133,8 @@ export default function Home() {
               THE SHOUT
             </p>
 
-            {/* HANGING BLACK BOARD SIGNBOARD SUSPENDED FROM TOP HEADER BOUNDARY */}
-            <div className="relative flex flex-col items-end group origin-top">
-              {/* Black Hanging Wires / Ropes extending all the way from top header border */}
-              <div className="absolute -top-[100px] right-6 flex space-x-28 pointer-events-none z-10">
-                {/* Left Rope & Top Ceiling Mount Pin */}
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neutral-900 shadow-md" />
-                  <div className="w-[2px] h-[100px] bg-black shadow-2xs" />
-                </div>
-                {/* Right Rope & Top Ceiling Mount Pin */}
-                <div className="flex flex-col items-center">
-                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neutral-900 shadow-md" />
-                  <div className="w-[2px] h-[100px] bg-black shadow-2xs" />
-                </div>
-              </div>
-
-              {/* Suspended Blackboard Container */}
-              <div className="relative px-6 py-5 rounded-2xl bg-[#0d0d0d] text-white border border-white/20 shadow-2xl max-w-[270px] text-right group-hover:rotate-1 group-hover:scale-[1.02] origin-top transition-transform duration-500 ease-out">
-                {/* Metallic Eyelet Corner Rivets connecting ropes to board */}
-                <div className="absolute -top-2 left-6 w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-500 flex items-center justify-center shadow-md">
-                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
-                </div>
-                <div className="absolute -top-2 right-6 w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-500 flex items-center justify-center shadow-md">
-                  <div className="w-1.5 h-1.5 rounded-full bg-black" />
-                </div>
-
-                {/* Header Tag inside Blackboard */}
-                <div className="flex items-center justify-end space-x-2 mb-2 border-b border-white/10 pb-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
-                  <span className="text-[9px] font-mono tracking-widest text-white/50 uppercase">
-                    EDITORIAL SIGNBOARD
-                  </span>
-                </div>
-
-                {/* White Texting inside Black Board */}
-                <ScrambleText
-                  text="STYLE IS A WAY TO SAY WHO YOU ARE WITHOUT HAVING TO SPEAK"
-                  trigger="onMount"
-                  staggerPerCharacterMs={25}
-                  shineColor="rgba(255, 255, 255, 0.4)"
-                  className="font-serif italic text-xs md:text-sm text-white font-normal tracking-wide leading-snug drop-shadow-xs"
-                />
-              </div>
-            </div>
+            {/* HANGING BLACK BOARD SIGNBOARD WITH FRAMER MOTION 3D SWAY & FUNKY TEXT */}
+            <HangingBoard />
 
             {/* FRAMER MOTION & GSAP 3D INTERACTIVE BADGE */}
             <ThreeDBadge />
