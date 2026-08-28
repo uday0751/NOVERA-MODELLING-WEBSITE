@@ -37,10 +37,10 @@ export function HangingBoard() {
           <div className="w-1 h-1 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.9)]" />
         </div>
 
-        {/* Funky Neon Top Tag */}
+        {/* Bold White Top Tag */}
         <div className="flex items-center justify-end space-x-1.5 mb-1.5 pb-1 border-b border-white/10">
-          <span className="text-[8px] font-mono font-bold tracking-widest text-emerald-400 uppercase flex items-center space-x-1">
-            <span className="h-1 w-1 rounded-full bg-emerald-400 animate-ping inline-block mr-1" />
+          <span className="text-[8px] font-mono font-extrabold tracking-widest text-white uppercase flex items-center space-x-1 drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]">
+            <span className="h-1 w-1 rounded-full bg-white animate-ping inline-block mr-1" />
             ★ STYLING STATEMENT
           </span>
         </div>
