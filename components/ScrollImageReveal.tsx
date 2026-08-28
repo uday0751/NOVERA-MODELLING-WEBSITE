@@ -113,11 +113,12 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE (MAXIMUM RESOLUTION RENDERING) */}
+      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE CONTAINER */}
       <div
         ref={imageRef}
         className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform"
       >
+        {/* Source image must stay at or above ~1900px width / 3000px height to avoid upscaling blur when object-fit: cover stretches it to 200vh height on large screens. If replacing this file in the future, keep resolution at or above this size. */}
         <Image
           src={imageSrc}
           alt="NOVERA Full Body High Fashion Editorial Model"
