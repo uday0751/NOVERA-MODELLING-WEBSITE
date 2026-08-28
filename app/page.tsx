@@ -105,27 +105,27 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Hero Section Bottom Bar */}
-        <div className="relative z-20 pt-6 border-t border-black/10 flex justify-between items-center mt-auto">
+        {/* Hero Section Bottom Bar (Positioned a bit lower with larger, ultra-stylish typography) */}
+        <div className="relative z-20 pt-8 mt-auto border-t border-black/10 flex flex-col sm:flex-row justify-between items-center gap-4">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             NOVERA EDITORIAL // 2026
           </span>
 
-          {/* ANIMATED HIGH FASHION AGENCY LUXURY BADGE (SCALED DOWN 1 SIZE) */}
-          <div className="group relative inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full border border-black/15 bg-white/90 backdrop-blur-md shadow-2xs transition-all duration-500 hover:border-black hover:shadow-xs cursor-pointer overflow-hidden">
-            {/* Pulsing Live Status Dot */}
-            <span className="relative flex h-1.5 w-1.5">
+          {/* STYLISH HIGH FASHION AGENCY BADGE */}
+          <div className="group relative inline-flex items-center space-x-3 px-6 py-2.5 rounded-full border border-black/20 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-500 hover:border-black hover:shadow-md hover:scale-[1.02] cursor-pointer translate-y-1.5 overflow-hidden">
+            {/* Live Pulsing Status Dot */}
+            <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-black" />
             </span>
 
-            {/* High Fashion Agency Text with Syne font, tracking animation and shimmer sweep */}
-            <span className="font-['Syne'] text-[9px] md:text-[10px] font-extrabold uppercase tracking-[0.25em] text-black group-hover:tracking-[0.35em] transition-all duration-500">
-              HIGH FASHION AGENCY
+            {/* High Fashion Agency Text: Syne Uppercase + Italic Serif Combination */}
+            <span className="text-xs md:text-sm tracking-[0.3em] font-extrabold uppercase font-['Syne'] text-black group-hover:tracking-[0.4em] transition-all duration-500">
+              HIGH FASHION <span className="font-serif italic font-normal lowercase text-black/80 group-hover:text-black">agency</span>
             </span>
 
-            {/* Shimmer Sweep Effect */}
-            <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-black/10 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none" />
+            {/* Subtle Animated Underline Accent */}
+            <span className="absolute bottom-1 left-6 right-6 h-[1.5px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center" />
           </div>
         </div>
       </section>
