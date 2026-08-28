@@ -8,7 +8,7 @@ export default function Home() {
       {/* FIXED HEADER NAVBAR */}
       <header className="fixed top-0 left-0 right-0 z-40 px-8 lg:px-16 py-6 flex items-center justify-between border-b border-black/10 bg-white/90 backdrop-blur-md">
         <Link href="/" className="font-['Syne'] font-extrabold text-xl tracking-wider text-black">
-          ALVORE
+          NOVERA
         </Link>
 
         {/* Center Navigation Links */}
@@ -47,8 +47,6 @@ export default function Home() {
       {/* GSAP SINGLE TIMELINE SCROLL-DRIVEN IMAGE REVEAL */}
       <ScrollImageReveal
         imageSrc="/full-length-model.png"
-        heroCropBottomPercent={55}
-        nextSectionCropPercent={100}
         scaleDrift={1.03}
         rotationDrift={1}
         revealMode="pinned"
@@ -59,7 +57,7 @@ export default function Home() {
               {/* Left Block: Quote & Action Button */}
               <div className="md:col-span-5 space-y-6 max-w-md">
                 <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
-                  ALVORE IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
+                  NOVERA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
                 </p>
 
                 <div className="pt-2">
@@ -133,7 +131,7 @@ export default function Home() {
                 PAGE 02 // PANTS & BOOTS REVEALED
               </span>
               <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                GSAP TIMELINE ENGINE
+                NOVERA EDITORIAL // 2026
               </span>
             </div>
           </>
@@ -229,7 +227,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="relative z-20 py-8 px-8 lg:px-16 border-t border-black/10 text-xs text-black/60 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
         <div>
-          <span className="font-['Syne'] font-bold text-black">ALVORE AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
+          <span className="font-['Syne'] font-bold text-black">NOVERA AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
         </div>
         <div className="flex space-x-6">
           <Link href="/client/models" className="hover:text-black">Models</Link>
