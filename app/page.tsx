@@ -1,10 +1,17 @@
 import Link from 'next/link';
-import { ScrollImageReveal } from '@/components/ScrollImageReveal';
+import Image from 'next/image';
 
 export default function Home() {
   return (
     <div className="relative min-h-screen bg-white text-black font-['Outfit'] selection:bg-black selection:text-white">
       
+      {/* 3x3 ARCHITECTURAL GRID OVERLAY */}
+      <div className="architectural-grid-white z-10 pointer-events-none">
+        <div /><div /><div />
+        <div /><div /><div />
+        <div /><div /><div />
+      </div>
+
       {/* FIXED HEADER NAVBAR */}
       <header className="fixed top-0 left-0 right-0 z-40 px-8 lg:px-16 py-6 flex items-center justify-between border-b border-black/10 bg-white/90 backdrop-blur-md">
         <Link href="/" className="font-['Syne'] font-extrabold text-xl tracking-wider text-black">
@@ -44,98 +51,64 @@ export default function Home() {
         </div>
       </header>
 
-      {/* GSAP SINGLE UNIFORMLY SCALED FULL-BODY IMAGE SCROLL-DRIVEN REVEAL */}
-      <ScrollImageReveal
-        imageSrc="/full-length-model.png"
-        scaleDrift={1.03}
-        rotationDrift={1}
-        heroContent={
-          <>
-            {/* Middle Content Overlay Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto pt-6">
-              {/* Left Block: Quote & Action Button */}
-              <div className="md:col-span-5 space-y-6 max-w-md">
-                <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
-                  NOVERA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
-                </p>
+      {/* ORIGINAL HERO SECTION DESIGN */}
+      <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 pt-[100px] pb-12">
+        {/* Background Clean Studio Model Image */}
+        <div className="absolute inset-0 z-0 flex justify-center pointer-events-none p-4 md:p-8">
+          <div className="relative w-full max-w-5xl h-full">
+            <Image
+              src="/user-clean-hero.png"
+              alt="NOVERA Editorial Model"
+              fill
+              priority
+              quality={100}
+              unoptimized
+              className="object-contain object-center"
+            />
+          </div>
+        </div>
 
-                <div className="pt-2">
-                  <Link
-                    href="/client/models"
-                    className="btn-shiny inline-flex items-center space-x-3 px-8 py-4 bg-[#1a1a1a] text-white text-xs font-bold uppercase tracking-widest rounded-2xl shadow-xl hover:bg-black transition-all"
-                  >
-                    <span>EXPLORE MODELS</span>
-                    <span className="text-sm">&rarr;</span>
-                  </Link>
-                </div>
-              </div>
+        {/* Middle Content Overlay Grid */}
+        <div className="relative z-20 grid grid-cols-1 md:grid-cols-12 gap-8 my-auto pt-6">
+          {/* Left Block: Quote & Action Button */}
+          <div className="md:col-span-5 space-y-6 max-w-md">
+            <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
+              NOVERA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
+            </p>
 
-              {/* Center Space framing upper body */}
-              <div className="hidden md:block md:col-span-4" />
-
-              {/* Right Block: Tagline */}
-              <div className="md:col-span-3 text-right flex flex-col justify-end">
-                <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-black/60 leading-tight">
-                  FASHION WITHOUT <br />
-                  THE SHOUT
-                </p>
-              </div>
+            <div className="pt-2">
+              <Link
+                href="/client/models"
+                className="btn-shiny inline-flex items-center space-x-3 px-8 py-4 bg-[#1a1a1a] text-white text-xs font-bold uppercase tracking-widest rounded-2xl shadow-xl hover:bg-black transition-all"
+              >
+                <span>EXPLORE MODELS</span>
+                <span className="text-sm">&rarr;</span>
+              </Link>
             </div>
+          </div>
 
-            {/* Hero Section Bottom Bar & Scroll Indicator */}
-            <div className="pt-6 border-t border-black/10 flex justify-between items-center mt-auto">
-              <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                PAGE 01 // HEAD TO WAIST
-              </span>
-              <div className="flex items-center space-x-2 text-xs font-mono font-bold tracking-widest text-black/70 animate-bounce">
-                <span>SCROLL DOWN FOR FULL LOOK REVEAL</span>
-                <span>↓</span>
-              </div>
-            </div>
-          </>
-        }
-        nextSectionContent={
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 my-auto py-12">
-              {/* Left Column Accent */}
-              <div className="md:col-span-4 space-y-4 max-w-sm">
-                <span className="text-xs font-mono font-bold text-black/40 tracking-widest uppercase">
-                  EDITORIAL DETAILS // LOOK 02
-                </span>
-                <h2 className="text-2xl md:text-4xl font-extrabold font-['Syne'] uppercase text-black">
-                  FULL-LENGTH SILHOUETTE
-                </h2>
-                <p className="text-xs text-gray-700 leading-relaxed font-medium">
-                  Tailored wide-leg trousers with accent red lanyard, belted waist, and heavy chunky boots. Complete presentation of high-fashion proportions.
-                </p>
-              </div>
+          {/* Center Space framing upper body */}
+          <div className="hidden md:block md:col-span-4" />
 
-              {/* Center Space framing full legs & boots */}
-              <div className="hidden md:block md:col-span-4" />
+          {/* Right Block: Tagline */}
+          <div className="md:col-span-3 text-right flex flex-col justify-end">
+            <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-black/60 leading-tight">
+              FASHION WITHOUT <br />
+              THE SHOUT
+            </p>
+          </div>
+        </div>
 
-              {/* Right Column Action */}
-              <div className="md:col-span-4 flex flex-col justify-center items-end space-y-4">
-                <Link
-                  href="/client/models"
-                  className="px-6 py-3 border border-black rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-black hover:text-white transition-all bg-white/80 backdrop-blur-xs"
-                >
-                  Hire Full Look Talent &rarr;
-                </Link>
-              </div>
-            </div>
-
-            {/* Next Section Bottom Bar */}
-            <div className="pt-6 border-t border-black/10 flex justify-between items-center mt-auto pb-6">
-              <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                PAGE 02 // PANTS & BOOTS REVEALED
-              </span>
-              <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-                NOVERA EDITORIAL // 2026
-              </span>
-            </div>
-          </>
-        }
-      />
+        {/* Hero Section Bottom Bar */}
+        <div className="relative z-20 pt-6 border-t border-black/10 flex justify-between items-center mt-auto">
+          <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
+            NOVERA EDITORIAL // 2026
+          </span>
+          <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
+            HIGH FASHION AGENCY
+          </span>
+        </div>
+      </section>
 
       {/* FEATURED MODULES & PLATFORM SHOWCASE */}
       <section className="relative z-20 py-20 px-8 lg:px-16 bg-gray-50 border-t border-black/10">
