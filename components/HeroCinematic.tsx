@@ -187,11 +187,11 @@ export function HeroCinematic() {
           </div>
         </div>
 
-        {/* MASSIVE TYPOGRAPHY (z-30) — NOVARA WITH DYNAMIC DUAL-COLOR MIX-BLEND DIFFERENCE */}
+        {/* MASSIVE TYPOGRAPHY (z-30) — NOVARA HIGHLIGHTED IN BOLD PITCH BLACK */}
         <div className="absolute inset-x-0 bottom-8 z-30 flex justify-center pointer-events-none text-center w-full px-6 overflow-hidden">
           <h1
             ref={headlineRef}
-            className="text-[8vw] sm:text-[9vw] md:text-[10vw] lg:text-[10.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
+            className="text-[8.5vw] sm:text-[9.5vw] md:text-[10.5vw] lg:text-[11vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-black select-none whitespace-nowrap drop-shadow-[0_12px_40px_rgba(0,0,0,0.3)]"
           >
             NOVARA
           </h1>
