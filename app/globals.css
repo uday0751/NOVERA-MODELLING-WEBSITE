@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #000000;
+  --font-editorial: 'Cinzel', serif;
+  --font-grotesk: 'Space Grotesk', sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: #000000;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.font-grotesk {
+  font-family: var(--font-grotesk);
+}
+
+/* Shiny Liquid Obsidian / Chrome Text Animation */
+@keyframes shineObsidian {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shiny-obsidian-text {
+  background: linear-gradient(
+    110deg,
+    #000000 0%,
+    #000000 30%,
+    #71717a 50%,
+    #000000 70%,
+    #000000 100%
+  );
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shineObsidian 4s linear infinite;
+}
+
+/* Upper Left Eyebrow Card Shimmer & Pulse Animation */
+@keyframes eyebrowGlow {
+  0%, 100% {
+    border-color: rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    transform: translateY(0px);
+  }
+  50% {
+    border-color: rgba(168, 85, 247, 0.4);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.12);
+    transform: translateY(-2px);
+  }
+}
+
+.eyebrow-card-animated {
+  animation: eyebrowGlow 5s ease-in-out infinite;
+}
+
+/* Text Shimmer Effect for Eyebrow Quote */
+@keyframes textShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.eyebrow-text-gradient {
+  background: linear-gradient(
+    90deg,
+    #18181b 0%,
+    #18181b 40%,
+    #9333ea 50%,
+    #2563eb 60%,
+    #18181b 70%,
+    #18181b 100%
+  );
+  background-size: 200% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: textShimmer 6s ease-in-out infinite;
+}
+
+/* High Fashion Architectural 3x3 Grid Overlay */
+.architectural-grid-white {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.architectural-grid-white > div {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Hover Shine Button Animation */
+.btn-shiny {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-shiny::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+}
+
+.btn-shiny:hover::after {
+  opacity: 1;
+  transform: rotate(30deg) translate(20%, 20%);
+}
