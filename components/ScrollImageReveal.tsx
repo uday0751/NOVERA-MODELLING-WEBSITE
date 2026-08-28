@@ -12,7 +12,10 @@ if (typeof window !== 'undefined') {
 
 export interface ScrollImageRevealProps {
   topImageSrc?: string; // waist-up photo, e.g. "/user-clean-hero.png"
-  bottomImageSrc?: string; // full-body photo showing legs/pants/shoes, e.g. "/full-length-model.png"
+  
+  // This must be a pre-cropped image containing only the lower body (waist down). Do not use the same full-body file as the hero image.
+  bottomImageSrc?: string; // lower-body photo, e.g. "/model-legs.png" or "/full-length-model.png"
+  
   heroContent?: React.ReactNode;
   nextSectionContent?: React.ReactNode;
   scaleDrift?: number;
@@ -131,16 +134,18 @@ export function ScrollImageReveal({
           />
         </div>
 
-        {/* BOTTOM IMAGE (SECOND 100VH - FULL BODY / LEGS & SHOES PHOTO) */}
+        {/* BOTTOM IMAGE (SECOND 100VH - LOWER BODY / LEGS & SHOES PHOTO) */}
+        {/* TEMP: This CSS crop is a stopgap. Replace bottomImageSrc with a properly pre-cropped lower-body-only image file for a cleaner, more reliable result. */}
         <div className="relative w-full h-[100vh] overflow-hidden [mask-image:linear-gradient(to_top,black_85%,transparent_100%)]">
           <Image
             src={bottomImageSrc}
-            alt="NOVERA Full Body Editorial Model"
+            alt="NOVERA Lower Body Editorial Model"
             fill
             priority
             quality={100}
             unoptimized
-            className="object-cover object-top"
+            style={{ objectFit: 'cover', objectPosition: '50% 100%' }}
+            className="object-cover object-bottom"
           />
         </div>
       </div>
