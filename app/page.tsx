@@ -149,7 +149,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED MODEL TALENT SPOTLIGHT */}
+      {/* FEATURED MODEL TALENT SPOTLIGHT (6 DISTINCT HIGH-FASHION MODELS) */}
       <section className="relative z-20 py-24 px-8 lg:px-16 bg-white border-b border-black/10">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end border-b border-black/10 pb-6">
@@ -174,7 +174,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Model Card 1 */}
             <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
-              <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
                 <Image
                   src="/asian_fashion_model_white_bg_1787852902357.png"
                   alt="Kenji Takahashi"
@@ -213,7 +213,46 @@ export default function Home() {
 
             {/* Model Card 2 */}
             <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
-              <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
+                <Image
+                  src="/female-editorial-model.png"
+                  alt="Elena Rostova"
+                  fill
+                  unoptimized
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                  <span className="px-3 py-1 bg-black/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ✓ Stripe Verified
+                  </span>
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-black text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ★ 5.0
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-['Syne'] text-xl font-extrabold uppercase text-black">Elena Rostova</h3>
+                  <span className="text-xs font-mono font-bold text-black">$210 / hr</span>
+                </div>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Luxury Editorial // Paris, FR</p>
+                <div className="pt-2 border-t border-black/10 flex justify-between text-[11px] text-gray-600 font-mono">
+                  <span>HT: 5'11"</span>
+                  <span>WAIST: 24"</span>
+                  <span>BUST: 34"</span>
+                </div>
+                <Link
+                  href="/client/models"
+                  className="block w-full py-2.5 text-center bg-gray-100 hover:bg-black hover:text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
+                >
+                  View Profile
+                </Link>
+              </div>
+            </div>
+
+            {/* Model Card 3 */}
+            <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
                 <Image
                   src="/black_fashion_model_white_bg_1787856541476.png"
                   alt="Malik Adebayo"
@@ -250,11 +289,89 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Model Card 3 */}
+            {/* Model Card 4 */}
             <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
-              <div className="relative h-[400px] w-full bg-gray-100 overflow-hidden">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
                 <Image
-                  src="/user-clean-hero.png"
+                  src="/male-streetwear-model.png"
+                  alt="Zion O'Connor"
+                  fill
+                  unoptimized
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                  <span className="px-3 py-1 bg-black/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ✓ Stripe Verified
+                  </span>
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-black text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ★ 4.96
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-['Syne'] text-xl font-extrabold uppercase text-black">Zion O'Connor</h3>
+                  <span className="text-xs font-mono font-bold text-black">$260 / hr</span>
+                </div>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Avant-Garde // New York, USA</p>
+                <div className="pt-2 border-t border-black/10 flex justify-between text-[11px] text-gray-600 font-mono">
+                  <span>HT: 6'3"</span>
+                  <span>WAIST: 32"</span>
+                  <span>CHEST: 41"</span>
+                </div>
+                <Link
+                  href="/client/models"
+                  className="block w-full py-2.5 text-center bg-gray-100 hover:bg-black hover:text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
+                >
+                  View Profile
+                </Link>
+              </div>
+            </div>
+
+            {/* Model Card 5 */}
+            <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
+                <Image
+                  src="/hero-model-black-sitting.png"
+                  alt="Marcus Vance"
+                  fill
+                  unoptimized
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute top-4 left-4 flex flex-wrap gap-1.5">
+                  <span className="px-3 py-1 bg-black/80 backdrop-blur-md text-white text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ✓ Stripe Verified
+                  </span>
+                  <span className="px-3 py-1 bg-white/90 backdrop-blur-md text-black text-[9px] font-bold uppercase tracking-wider rounded-full">
+                    ★ 4.95
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 space-y-3">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-['Syne'] text-xl font-extrabold uppercase text-black">Marcus Vance</h3>
+                  <span className="text-xs font-mono font-bold text-black">$195 / hr</span>
+                </div>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Commercial Editorial // Milan, IT</p>
+                <div className="pt-2 border-t border-black/10 flex justify-between text-[11px] text-gray-600 font-mono">
+                  <span>HT: 6'1"</span>
+                  <span>WAIST: 30"</span>
+                  <span>CHEST: 39"</span>
+                </div>
+                <Link
+                  href="/client/models"
+                  className="block w-full py-2.5 text-center bg-gray-100 hover:bg-black hover:text-white text-xs font-bold uppercase tracking-widest rounded-xl transition-all"
+                >
+                  View Profile
+                </Link>
+              </div>
+            </div>
+
+            {/* Model Card 6 */}
+            <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
+              <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
+                <Image
+                  src="/full-hd-model.png"
                   alt="Julian Vance"
                   fill
                   unoptimized
@@ -274,7 +391,7 @@ export default function Home() {
                   <h3 className="font-['Syne'] text-xl font-extrabold uppercase text-black">Julian Vance</h3>
                   <span className="text-xs font-mono font-bold text-black">$250 / hr</span>
                 </div>
-                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">Editorial // New York, USA</p>
+                <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">High Fashion // Los Angeles, USA</p>
                 <div className="pt-2 border-t border-black/10 flex justify-between text-[11px] text-gray-600 font-mono">
                   <span>HT: 6'1"</span>
                   <span>WAIST: 30"</span>
