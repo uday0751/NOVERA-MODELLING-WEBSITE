@@ -113,7 +113,7 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE (200VH TALL - INSIDE 100VH PINNED WINDOW) */}
+      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE (MAXIMUM RESOLUTION RENDERING) */}
       <div
         ref={imageRef}
         className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform"
@@ -125,7 +125,12 @@ export function ScrollImageReveal({
           priority
           quality={100}
           unoptimized
-          style={{ objectFit: 'cover', objectPosition: 'center top' }}
+          sizes="100vw"
+          style={{
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            imageRendering: '-webkit-optimize-contrast',
+          }}
           className="object-cover object-top"
         />
       </div>
