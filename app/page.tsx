@@ -176,7 +176,7 @@ export default function Home() {
             <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
               <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
                 <Image
-                  src="/asian_fashion_model_white_bg_1787852902357.png"
+                  src="/asian-fashion-model.png"
                   alt="Kenji Takahashi"
                   fill
                   unoptimized
@@ -254,7 +254,7 @@ export default function Home() {
             <div className="group relative rounded-2xl border border-black/10 bg-white overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500">
               <div className="relative h-[420px] w-full bg-gray-100 overflow-hidden">
                 <Image
-                  src="/black_fashion_model_white_bg_1787856541476.png"
+                  src="/black-fashion-model.png"
                   alt="Malik Adebayo"
                   fill
                   unoptimized
