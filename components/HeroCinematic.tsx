@@ -15,8 +15,6 @@ export function HeroCinematic() {
   const headerRef = useRef<HTMLElement>(null);
   const leftUiRef = useRef<HTMLDivElement>(null);
   const rightUiRef = useRef<HTMLDivElement>(null);
-  const specBadgeLeftRef = useRef<HTMLDivElement>(null);
-  const specBadgeRightRef = useRef<HTMLDivElement>(null);
   const bottomBarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,8 +25,6 @@ export function HeroCinematic() {
       gsap.set(headerRef.current, { opacity: 0, y: -20 });
       gsap.set(leftUiRef.current, { opacity: 0, y: 25 });
       gsap.set(rightUiRef.current, { opacity: 0, y: 25 });
-      gsap.set(specBadgeLeftRef.current, { opacity: 0, y: 15 });
-      gsap.set(specBadgeRightRef.current, { opacity: 0, y: 15 });
       gsap.set(bottomBarRef.current, { opacity: 0, y: 15 });
 
       // 2. Cinematic Entrance Timeline Sequence
@@ -85,14 +81,13 @@ export function HeroCinematic() {
         1.65
       );
 
-      // 2.00s - 2.70s: Floating Spec Badges & Bottom Bar Finish Appearing
+      // 2.00s - 2.70s: Bottom Bar Finish Appearing
       tl.to(
-        [specBadgeLeftRef.current, specBadgeRightRef.current, bottomBarRef.current],
+        bottomBarRef.current,
         {
           opacity: 1,
           y: 0,
           duration: 0.7,
-          stagger: 0.1,
         },
         2.0
       );
@@ -195,26 +190,6 @@ export function HeroCinematic() {
           >
             NOVARA
           </h1>
-        </div>
-
-        {/* Floating High-Fashion Editorial Spec Badges (z-30) */}
-        <div
-          ref={specBadgeLeftRef}
-          className="absolute bottom-32 left-12 hidden lg:flex items-center space-x-3 px-4 py-2 rounded-full border border-black/15 bg-white/80 backdrop-blur-md shadow-xs z-30 pointer-events-none"
-        >
-          <span className="h-2 w-2 rounded-full bg-black animate-pulse" />
-          <span className="text-[10px] font-mono font-bold tracking-widest text-black/80 uppercase">
-            HEIGHT: 6'1" // TOKYO • PARIS • NYC
-          </span>
-        </div>
-
-        <div
-          ref={specBadgeRightRef}
-          className="absolute top-36 right-16 hidden lg:flex items-center space-x-3 px-4 py-2 rounded-full border border-black/15 bg-white/80 backdrop-blur-md shadow-xs z-30 pointer-events-none"
-        >
-          <span className="text-[10px] font-mono font-bold tracking-widest text-black/80 uppercase">
-            EDITORIAL COLLECTION 01 // 2026
-          </span>
         </div>
 
         {/* Middle Content Overlay Grid (z-30) */}
