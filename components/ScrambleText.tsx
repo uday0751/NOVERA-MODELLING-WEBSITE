@@ -6,9 +6,9 @@ import { gsap } from 'gsap';
 /** CONFIGURABLE CONSTANTS AT TOP OF FILE */
 export const SCRAMBLE_DEFAULTS = {
   CHARACTER_SET: '0123456789#$%&*+=',
-  CHAR_DURATION: 0.5,
-  STAGGER_PER_CHAR: 0.025,
-  STAGGER_PER_LINE: 0.18,
+  CHAR_DURATION: 0.6,
+  STAGGER_PER_CHAR: 0.03,
+  STAGGER_PER_LINE: 0.2,
   EASE: 'power2.out',
 };
 
@@ -36,7 +36,6 @@ export function ScrambleText({
   const containerRef = useRef<HTMLDivElement>(null);
   const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const hasTriggeredRef = useRef<boolean>(false);
 
   const lines = text.split('\n');
 
@@ -55,9 +54,7 @@ export function ScrambleText({
     }
 
     const runAnimation = () => {
-      if (hasTriggeredRef.current) return;
-      hasTriggeredRef.current = true;
-
+      // Kill any previous timeline instance
       if (timelineRef.current) {
         timelineRef.current.kill();
       }
@@ -69,6 +66,7 @@ export function ScrambleText({
           spanRefs.current.forEach((span) => {
             if (span && span.dataset.finalChar) {
               span.textContent = span.dataset.finalChar;
+              span.style.opacity = '1';
             }
           });
         },
@@ -106,16 +104,17 @@ export function ScrambleText({
               duration: charDuration,
               ease: ease,
               onStart: () => {
-                // Start scrambling numbers/symbols
                 const randomChar =
                   scrambleCharacterSet[
                     Math.floor(Math.random() * scrambleCharacterSet.length)
                   ];
                 span.textContent = randomChar;
+                span.style.opacity = '0.7';
               },
               onUpdate: () => {
                 if (proxy.progress >= 1) {
                   span.textContent = finalChar;
+                  span.style.opacity = '1';
                 } else {
                   let nextChar =
                     scrambleCharacterSet[
@@ -129,12 +128,14 @@ export function ScrambleText({
                   }
                   prevChar = nextChar;
 
-                  // IMPERATIVE DIRECT DOM UPDATE (Zero React state re-renders)
+                  // IMPERATIVE DIRECT DOM UPDATE
                   span.textContent = nextChar;
+                  span.style.opacity = '0.75';
                 }
               },
               onComplete: () => {
                 span.textContent = finalChar;
+                span.style.opacity = '1';
               },
             },
             lineStartTime + charIdx * staggerPerChar
@@ -146,7 +147,16 @@ export function ScrambleText({
     };
 
     if (trigger === 'onMount') {
-      runAnimation();
+      // Small tick delay to ensure DOM refs are attached
+      const timer = setTimeout(() => {
+        runAnimation();
+      }, 50);
+      return () => {
+        clearTimeout(timer);
+        if (timelineRef.current) {
+          timelineRef.current.kill();
+        }
+      };
     } else {
       const observer = new IntersectionObserver(
         (entries) => {
@@ -167,12 +177,6 @@ export function ScrambleText({
         }
       };
     }
-
-    return () => {
-      if (timelineRef.current) {
-        timelineRef.current.kill();
-      }
-    };
   }, [
     text,
     trigger,
@@ -204,7 +208,7 @@ export function ScrambleText({
                   }}
                   data-line-idx={lIdx}
                   data-final-char={char}
-                  className="inline"
+                  className="inline-block transition-opacity duration-150"
                 >
                   {char}
                 </span>
