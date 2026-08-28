@@ -55,7 +55,7 @@ export function ThreeDBadge() {
   }, []);
 
   return (
-    <div style={{ perspective: 1000 }} className="inline-block">
+    <div style={{ perspective: 1000 }} className="inline-block translate-y-3.5">
       <motion.div
         ref={badgeRef}
         onMouseMove={handleMouseMove}
