@@ -11,6 +11,7 @@ import { HangingBoard } from '@/components/HangingBoard';
 export function HeroCinematic() {
   const containerRef = useRef<HTMLDivElement>(null);
   const modelRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const leftUiRef = useRef<HTMLDivElement>(null);
   const rightUiRef = useRef<HTMLDivElement>(null);
@@ -22,6 +23,7 @@ export function HeroCinematic() {
     const ctx = gsap.context(() => {
       // 1. Initial State: Pure Clean White Screen
       gsap.set(modelRef.current, { opacity: 0, scale: 0.95, y: 30 });
+      gsap.set(headlineRef.current, { opacity: 0, x: -180, scale: 0.98 });
       gsap.set(headerRef.current, { opacity: 0, y: -20 });
       gsap.set(leftUiRef.current, { opacity: 0, y: 25 });
       gsap.set(rightUiRef.current, { opacity: 0, y: 25 });
@@ -45,6 +47,19 @@ export function HeroCinematic() {
           ease: 'power3.out',
         },
         0.2
+      );
+
+      // 0.70s - 2.00s: Massive "NOVARA" Typography Left-to-Right Sweep
+      tl.to(
+        headlineRef.current,
+        {
+          opacity: 1,
+          x: 0,
+          scale: 1,
+          duration: 1.3,
+          ease: 'power4.out',
+        },
+        0.7
       );
 
       // 1.50s - 2.30s: Upper Navigation Bar Reveal
@@ -162,7 +177,7 @@ export function HeroCinematic() {
           <div className="relative w-full max-w-5xl h-full">
             <Image
               src="/user-clean-hero.png"
-              alt="SPEAK ALVORE Editorial Model"
+              alt="NOVARA Editorial Model"
               fill
               priority
               quality={100}
@@ -170,6 +185,16 @@ export function HeroCinematic() {
               className="object-contain object-center drop-shadow-md"
             />
           </div>
+        </div>
+
+        {/* MASSIVE TYPOGRAPHY (z-30) — NOVARA WITH DYNAMIC DUAL-COLOR MIX-BLEND DIFFERENCE */}
+        <div className="absolute inset-x-0 bottom-8 z-30 flex justify-center pointer-events-none text-center w-full px-4 overflow-hidden">
+          <h1
+            ref={headlineRef}
+            className="text-[11vw] sm:text-[12.5vw] md:text-[13.5vw] lg:text-[14vw] leading-none font-black font-['Syne'] tracking-tight uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_4px_25px_rgba(0,0,0,0.5)]"
+          >
+            NOVARA
+          </h1>
         </div>
 
         {/* Floating High-Fashion Editorial Spec Badges (z-30) */}
@@ -229,7 +254,7 @@ export function HeroCinematic() {
         {/* Hero Section Bottom Bar (z-30) */}
         <div ref={bottomBarRef} className="relative z-30 pt-6 mt-auto border-t border-black/10 flex justify-between items-center">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            SPEAK ALVORE EDITORIAL // 2026
+            NOVARA EDITORIAL // 2026
           </span>
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             HIGH FASHION AGENCY
