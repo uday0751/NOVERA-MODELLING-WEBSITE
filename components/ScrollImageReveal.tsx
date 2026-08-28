@@ -1,6 +1,6 @@
 'use client';
 
-// topImageSrc and bottomImageSrc are two crops taken from the same single source photo, split at the same horizontal line (y=385px of 1024px, the belt), at the same image width (1536px). Do not substitute independently generated or photographed images here — they will not align at the seam.
+// This uses ONE image scaled once via object-fit: cover at height: 200vh, then panned via translateY. Do not split this into two separate image files/containers — doing so causes each piece to be scaled independently, breaking visual continuity at the seam.
 
 import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
@@ -13,8 +13,7 @@ if (typeof window !== 'undefined') {
 }
 
 export interface ScrollImageRevealProps {
-  topImageSrc?: string; // waist-up photo, e.g. "/model-top.png"
-  bottomImageSrc?: string; // lower-body photo, e.g. "/model-bottom.png"
+  imageSrc?: string; // single full-body image, e.g. "/full-length-model.png"
   heroContent?: React.ReactNode;
   nextSectionContent?: React.ReactNode;
   scaleDrift?: number;
@@ -23,8 +22,7 @@ export interface ScrollImageRevealProps {
 }
 
 export function ScrollImageReveal({
-  topImageSrc = '/model-top.png',
-  bottomImageSrc = '/model-bottom.png',
+  imageSrc = '/full-length-model.png',
   heroContent,
   nextSectionContent,
   scaleDrift = 1.03,
@@ -32,12 +30,12 @@ export function ScrollImageReveal({
   className = '',
 }: ScrollImageRevealProps) {
   const pinSectionRef = useRef<HTMLDivElement>(null);
-  const translatingContainerRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const nextContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!pinSectionRef.current || !translatingContainerRef.current) return;
+    if (!pinSectionRef.current || !imageRef.current) return;
 
     // Accessibility check: Skip motion if OS prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -58,9 +56,9 @@ export function ScrollImageReveal({
         },
       });
 
-      // 1. Continuous vertical image translation from top image (0) to bottom stacked image (-100vh)
+      // 1. Continuous vertical image translation from top half (0) to bottom half (-100vh)
       tl.to(
-        translatingContainerRef.current,
+        imageRef.current,
         {
           y: '-100vh',
           scale: scaleDrift,
@@ -115,39 +113,21 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* TWO STACKED 100VH IMAGES INSIDE 200VH TRANSLATING CONTAINER */}
-      {/* These images are cropped from a wide source photo with extra whitespace on the sides — if the cover-fit zoom crops too tightly into the model, the fix is to re-crop the source image tighter around the model (not a CSS change). */}
+      {/* SINGLE UNIFORMLY SCALED FULL-BODY IMAGE (200VH TALL - INSIDE 100VH PINNED WINDOW) */}
       <div
-        ref={translatingContainerRef}
-        className="absolute inset-x-0 top-0 z-0 h-[200vh] w-full pointer-events-none will-change-transform flex flex-col"
+        ref={imageRef}
+        className="absolute inset-x-0 top-0 z-0 w-full h-[200vh] pointer-events-none will-change-transform"
       >
-        {/* TOP IMAGE (FIRST 100VH - PRE-ALIGNED WAIST UP CROP) */}
-        <div className="relative w-full h-[100vh] overflow-hidden">
-          <Image
-            src={topImageSrc}
-            alt="NOVERA Waist Up Editorial Model"
-            fill
-            priority
-            quality={100}
-            unoptimized
-            style={{ objectFit: 'cover', objectPosition: 'center top' }}
-            className="object-cover object-top"
-          />
-        </div>
-
-        {/* BOTTOM IMAGE (SECOND 100VH - PRE-ALIGNED LOWER BODY CROP WITH ZERO GAP AT SEAM) */}
-        <div className="relative w-full h-[100vh] overflow-hidden">
-          <Image
-            src={bottomImageSrc}
-            alt="NOVERA Lower Body Editorial Model"
-            fill
-            priority
-            quality={100}
-            unoptimized
-            style={{ objectFit: 'cover', objectPosition: 'center bottom' }}
-            className="object-cover object-bottom"
-          />
-        </div>
+        <Image
+          src={imageSrc}
+          alt="NOVERA Full Body High Fashion Editorial Model"
+          fill
+          priority
+          quality={100}
+          unoptimized
+          style={{ objectFit: 'cover', objectPosition: 'center top' }}
+          className="object-cover object-top"
+        />
       </div>
 
       {/* VIEWPORT OVERLAY CONTAINER (100VH STICKY/PINNED VIEWPORT) */}
