@@ -14,8 +14,8 @@ export function ThreeDBadge() {
 
   // Physics Spring Config for buttery-smooth 3D movement
   const springConfig = { damping: 20, stiffness: 200, mass: 0.5 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), springConfig);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!badgeRef.current) return;
@@ -37,15 +37,14 @@ export function ThreeDBadge() {
     y.set(0);
   };
 
-  // GSAP 3D Shimmer & Subtle Breathing Effect
+  // GSAP 3D Subtle Breathing Float Effect
   useEffect(() => {
     if (!textRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Continuous 3D letter float animation
       gsap.to(textRef.current, {
-        translateZ: 8,
-        duration: 2,
+        translateZ: 6,
+        duration: 2.2,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
@@ -66,9 +65,9 @@ export function ThreeDBadge() {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-full border border-black/20 bg-gradient-to-b from-white via-gray-50 to-gray-100/90 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden select-none"
+        className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-full border border-black/20 bg-gradient-to-b from-white via-gray-50 to-gray-100/95 backdrop-blur-md shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden select-none"
       >
-        {/* 3D Inner Layer Depth Shadow */}
+        {/* 3D Inner Layer Depth */}
         <div
           style={{ transform: 'translateZ(10px)' }}
           className="relative flex items-center space-x-2.5"
@@ -79,23 +78,29 @@ export function ThreeDBadge() {
             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black" />
           </span>
 
-          {/* 3D Styled Text (Syne Bold + Italic Serif Combination) */}
+          {/* High Fashion Title */}
           <span
             ref={textRef}
             style={{ transformStyle: 'preserve-3d' }}
-            className="text-[10px] md:text-[11px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] group-hover:tracking-[0.38em] transition-all duration-500"
+            className="text-[10px] md:text-[11px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]"
           >
-            HIGH FASHION{' '}
-            <span className="font-serif italic font-normal lowercase text-black/80 group-hover:text-black">
-              agency
-            </span>
+            HIGH FASHION
           </span>
+
+          {/* Elegant 3D Spring Hover Animated "agency" Text */}
+          <motion.span
+            whileHover={{ scale: 1.12, y: -2, rotate: -3 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
+            className="inline-block font-serif italic font-normal lowercase text-black/75 hover:text-black text-xs md:text-sm drop-shadow-xs hover:drop-shadow-md cursor-pointer transition-colors duration-300 ml-0.5"
+          >
+            agency
+          </motion.span>
         </div>
 
         {/* 3D Metallic Gloss Sweep Overlay */}
         <div
           style={{ transform: 'translateZ(15px)' }}
-          className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none"
+          className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none"
         />
       </motion.div>
     </div>
