@@ -18,20 +18,34 @@ interface BookingItem {
 
 interface BookingsListProps {
   bookings: BookingItem[];
+  identityVerified?: boolean;
 }
 
-export function IncomingBookingsList({ bookings = [] }: BookingsListProps) {
+export function IncomingBookingsList({ bookings = [], identityVerified = false }: BookingsListProps) {
   const [loadingId, setLoadingId] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const handleRespond = async (bookingId: string, status: 'accepted' | 'declined') => {
+    if (status === 'accepted' && !identityVerified) {
+      setErrorMsg('You must complete Government Identity Verification before accepting paid bookings.');
+      return;
+    }
+
     setLoadingId(bookingId);
+    setErrorMsg(null);
     await respondToBookingAction(bookingId, status);
     setLoadingId(null);
   };
 
   return (
-    <div className="border p-4 rounded space-y-4">
+    <div className="border p-4 rounded space-y-4 bg-white text-black">
       <h2 className="text-xl font-bold">Incoming Booking Requests</h2>
+
+      {errorMsg && (
+        <p className="text-xs text-red-600 font-semibold p-2 border border-red-300 bg-red-50 rounded">
+          {errorMsg}
+        </p>
+      )}
 
       {bookings.length === 0 ? (
         <p className="text-sm text-gray-500">No booking requests received yet.</p>
@@ -65,7 +79,7 @@ export function IncomingBookingsList({ bookings = [] }: BookingsListProps) {
                   <button
                     onClick={() => handleRespond(b.id, 'accepted')}
                     disabled={loadingId === b.id}
-                    className="border bg-black text-white px-3 py-1 text-xs rounded disabled:opacity-50"
+                    className="border bg-black text-white px-3 py-1 text-xs rounded disabled:opacity-50 hover:bg-gray-800"
                   >
                     Accept Booking
                   </button>

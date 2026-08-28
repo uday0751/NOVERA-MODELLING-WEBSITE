@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { SignOutButton } from '@/components/sign-out-button';
 import { ProfileStatusCard } from '@/components/model/dashboard/profile-status-card';
+import { IdentityVerificationCard } from '@/components/identity/identity-verification-card';
 import { StatsEditor } from '@/components/model/dashboard/stats-editor';
 import { MediaManager } from '@/components/model/dashboard/media-manager';
 import { RatesEditor } from '@/components/model/dashboard/rates-editor';
@@ -64,7 +65,7 @@ export default async function ModelDashboardPage() {
     .order('applied_at', { ascending: false });
 
   return (
-    <main className="p-6 max-w-4xl mx-auto space-y-6">
+    <main className="p-6 max-w-4xl mx-auto space-y-6 text-black">
       <div className="flex justify-between items-center border-b pb-4">
         <div>
           <h1 className="text-2xl font-bold">Model Dashboard</h1>
@@ -80,6 +81,12 @@ export default async function ModelDashboardPage() {
         hasRates={Boolean(rates)}
       />
 
+      <IdentityVerificationCard
+        role="model"
+        isVerified={Boolean(profile.identity_verified)}
+        verifiedAt={profile.identity_verified_at}
+      />
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <StatsEditor details={details} />
         <RatesEditor rates={rates} />
@@ -90,7 +97,10 @@ export default async function ModelDashboardPage() {
       <AvailabilityCalendar initialAvailability={availability || []} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <IncomingBookingsList bookings={bookings || []} />
+        <IncomingBookingsList
+          bookings={bookings || []}
+          identityVerified={Boolean(profile.identity_verified)}
+        />
         <AppliedCastingsList applications={applications || []} />
       </div>
     </main>

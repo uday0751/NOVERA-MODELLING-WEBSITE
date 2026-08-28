@@ -69,6 +69,22 @@ export async function POST(req: Request) {
         break;
       }
 
+      case 'identity.verification_session.verified': {
+        const session = event.data.object as any;
+        const profileId = session.metadata?.profile_id;
+
+        if (profileId) {
+          await supabaseAdmin
+            .from('profiles')
+            .update({
+              identity_verified: true,
+              identity_verified_at: new Date().toISOString(),
+            })
+            .eq('id', profileId);
+        }
+        break;
+      }
+
       default:
         console.log(`Unhandled Stripe event type: ${event.type}`);
     }

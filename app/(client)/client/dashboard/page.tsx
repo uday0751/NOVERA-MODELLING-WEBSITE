@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { SignOutButton } from '@/components/sign-out-button';
 import { ModelCard } from '@/components/client/model-card';
 import { BookingPaymentActions } from '@/components/client/booking-payment-actions';
+import { IdentityVerificationCard } from '@/components/identity/identity-verification-card';
 
 export default async function ClientDashboardPage() {
   const supabase = await createClient();
@@ -118,6 +119,12 @@ export default async function ClientDashboardPage() {
           <SignOutButton />
         </div>
       </div>
+
+      <IdentityVerificationCard
+        role="client"
+        isVerified={Boolean(profile.identity_verified)}
+        verifiedAt={profile.identity_verified_at}
+      />
 
       {/* Booking Requests */}
       <div className="border p-4 rounded space-y-3 bg-white">
