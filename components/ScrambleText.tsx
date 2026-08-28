@@ -25,7 +25,7 @@ export interface ScrambleTextProps {
 
 export function ScrambleText({
   text,
-  trigger = 'onScroll',
+  trigger = 'onMount',
   scrambleCharacterSet = SCRAMBLE_DEFAULTS.CHARACTER_SET,
   charDuration = SCRAMBLE_DEFAULTS.CHAR_DURATION,
   staggerPerChar = SCRAMBLE_DEFAULTS.STAGGER_PER_CHAR,
@@ -63,7 +63,16 @@ export function ScrambleText({
       }
 
       // GSAP Master Timeline (Frame-synced via requestAnimationFrame)
-      const masterTimeline = gsap.timeline();
+      const masterTimeline = gsap.timeline({
+        onComplete: () => {
+          // Guarantee 100% of characters are locked to final text on completion
+          spanRefs.current.forEach((span) => {
+            if (span && span.dataset.finalChar) {
+              span.textContent = span.dataset.finalChar;
+            }
+          });
+        },
+      });
 
       lines.forEach((line, lineIdx) => {
         const lineStartTime = lineIdx * staggerPerLine;
@@ -96,11 +105,18 @@ export function ScrambleText({
               progress: 1,
               duration: charDuration,
               ease: ease,
+              onStart: () => {
+                // Start scrambling numbers/symbols
+                const randomChar =
+                  scrambleCharacterSet[
+                    Math.floor(Math.random() * scrambleCharacterSet.length)
+                  ];
+                span.textContent = randomChar;
+              },
               onUpdate: () => {
                 if (proxy.progress >= 1) {
                   span.textContent = finalChar;
                 } else {
-                  // Pick a random char that is NOT equal to the previous one
                   let nextChar =
                     scrambleCharacterSet[
                       Math.floor(Math.random() * scrambleCharacterSet.length)
@@ -139,7 +155,7 @@ export function ScrambleText({
             observer.disconnect();
           }
         },
-        { threshold: 0.3 }
+        { threshold: 0.1 }
       );
 
       observer.observe(containerRef.current);
@@ -179,7 +195,6 @@ export function ScrambleText({
           <div key={`line-${lIdx}`} className="leading-relaxed">
             {line.split('').map((char, cIdx) => {
               const refIdx = globalCharIndex++;
-              const isSpecial = char === ' ' || !/[a-zA-Z0-9—]/.test(char);
 
               return (
                 <span
@@ -189,13 +204,9 @@ export function ScrambleText({
                   }}
                   data-line-idx={lIdx}
                   data-final-char={char}
-                  className={
-                    isSpecial
-                      ? 'inline'
-                      : 'inline-block font-mono tabular-nums min-w-[1ch] text-center'
-                  }
+                  className="inline"
                 >
-                  {isSpecial ? char : scrambleCharacterSet[0]}
+                  {char}
                 </span>
               );
             })}
