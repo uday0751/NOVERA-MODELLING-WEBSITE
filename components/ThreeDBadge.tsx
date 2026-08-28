@@ -56,10 +56,7 @@ export function ThreeDBadge() {
   }, []);
 
   return (
-    <div
-      style={{ perspective: 1000 }}
-      className="inline-block translate-y-4"
-    >
+    <div style={{ perspective: 1000 }} className="inline-block">
       <motion.div
         ref={badgeRef}
         onMouseMove={handleMouseMove}
@@ -69,7 +66,7 @@ export function ThreeDBadge() {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="group relative inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-black/20 bg-gradient-to-b from-white via-gray-50 to-gray-100/90 backdrop-blur-md shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden select-none"
+        className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-full border border-black/20 bg-gradient-to-b from-white via-gray-50 to-gray-100/90 backdrop-blur-md shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden select-none"
       >
         {/* 3D Inner Layer Depth Shadow */}
         <div
@@ -86,7 +83,7 @@ export function ThreeDBadge() {
           <span
             ref={textRef}
             style={{ transformStyle: 'preserve-3d' }}
-            className="text-[9px] md:text-[10px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] group-hover:tracking-[0.38em] transition-all duration-500"
+            className="text-[10px] md:text-[11px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)] group-hover:tracking-[0.38em] transition-all duration-500"
           >
             HIGH FASHION{' '}
             <span className="font-serif italic font-normal lowercase text-black/80 group-hover:text-black">

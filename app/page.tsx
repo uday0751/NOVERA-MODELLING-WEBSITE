@@ -97,23 +97,26 @@ export default function Home() {
           {/* Center Space framing upper body */}
           <div className="hidden md:block md:col-span-4" />
 
-          {/* Right Block: Tagline */}
-          <div className="md:col-span-3 text-right flex flex-col justify-end">
+          {/* Right Block: Tagline & 3D Interactive Badge (Positioned Up Right Side) */}
+          <div className="md:col-span-3 text-right flex flex-col justify-end items-end space-y-4">
             <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-black/60 leading-tight">
               FASHION WITHOUT <br />
               THE SHOUT
             </p>
+
+            {/* FRAMER MOTION & GSAP 3D INTERACTIVE BADGE */}
+            <ThreeDBadge />
           </div>
         </div>
 
-        {/* Hero Section Bottom Bar (Lowered position & 2-3 scale down with 3D Framer Motion + GSAP) */}
-        <div className="relative z-20 pt-8 mt-auto border-t border-black/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+        {/* Hero Section Bottom Bar */}
+        <div className="relative z-20 pt-6 mt-auto border-t border-black/10 flex justify-between items-center">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             NOVERA EDITORIAL // 2026
           </span>
-
-          {/* FRAMER MOTION & GSAP 3D INTERACTIVE BADGE */}
-          <ThreeDBadge />
+          <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
+            HIGH FASHION AGENCY
+          </span>
         </div>
       </section>
 
