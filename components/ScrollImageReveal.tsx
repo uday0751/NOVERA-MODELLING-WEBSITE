@@ -14,10 +14,10 @@ if (typeof window !== 'undefined') {
 export const DEFAULT_CONFIG = {
   IMAGE_SRC: '/full-length-model.png',
   REVEAL_MODE: 'pinned' as 'pinned' | 'parallax',
-  HERO_CROP_BOTTOM_PERCENT: 55, // Show top 55% (head to waist) in section 1
-  NEXT_SECTION_CROP_PERCENT: 100, // Show full 100% (down to boots) by section 2
-  SCALE_DRIFT: 1.03, // Subtle scale drift (1 -> 1.03)
-  ROTATION_DRIFT: 1, // Subtle rotation drift (0deg -> 1deg)
+  HERO_CROP_BOTTOM_PERCENT: 55,
+  NEXT_SECTION_CROP_PERCENT: 100,
+  SCALE_DRIFT: 1.02,
+  ROTATION_DRIFT: 0,
 };
 
 export interface ScrollImageRevealProps {
@@ -44,33 +44,35 @@ export function ScrollImageReveal({
   className = '',
 }: ScrollImageRevealProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const innerImageRef = useRef<HTMLDivElement>(null);
+  const imageWrapperRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !innerImageRef.current) return;
+    if (!containerRef.current || !imageWrapperRef.current) return;
 
     // 1. Accessibility Check for prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      return; // Skip motion animations if OS prefers reduced motion
+      return;
     }
 
     const ctx = gsap.context(() => {
-      // Shift image upwards as user scrolls into Section 2
-      const shiftDistance = (nextSectionCropPercent - heroCropBottomPercent) * 8; // smooth vertical shift
-
-      gsap.to(innerImageRef.current, {
-        y: -shiftDistance,
-        scale: scaleDrift,
-        rotate: rotationDrift,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top top',
-          end: 'bottom bottom',
-          scrub: true,
-        },
-      });
+      // Smoothly move the image upward from 0% (head & hoodie) to -38% (legs & boots reveal) on scroll
+      gsap.fromTo(
+        imageWrapperRef.current,
+        { yPercent: 0, scale: 1, rotate: 0 },
+        {
+          yPercent: -38,
+          scale: scaleDrift,
+          rotate: rotationDrift,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: true,
+          },
+        }
+      );
     }, containerRef);
 
     return () => ctx.revert();
@@ -81,11 +83,11 @@ export function ScrollImageReveal({
       ref={containerRef}
       className={`relative w-full bg-white text-black ${className}`}
     >
-      {/* STICKY FULL MODEL IMAGE CONTAINER (PIVOTAL DISPLAY SPANNING BOTH SECTIONS) */}
-      <div className="sticky top-0 h-screen w-full z-0 flex items-center justify-center overflow-hidden pointer-events-none p-4 md:p-8">
+      {/* STICKY FULL MODEL IMAGE CONTAINER (FRAMES HEAD & HOODIE AT TOP ON PAGE LOAD) */}
+      <div className="sticky top-0 h-screen w-full z-0 flex items-start justify-center overflow-hidden pointer-events-none p-4 md:p-8 pt-[80px]">
         <div
-          ref={innerImageRef}
-          className="relative w-full max-w-5xl h-[160vh] md:h-[180vh] transition-transform duration-75"
+          ref={imageWrapperRef}
+          className="relative w-full max-w-5xl h-[120vh] md:h-[135vh] will-change-transform"
         >
           <Image
             src={imageSrc}
@@ -108,12 +110,12 @@ export function ScrollImageReveal({
           <div /><div /><div />
         </div>
 
-        {/* SECTION 1: HERO SECTION (WAIST LOOK) */}
+        {/* SECTION 1: HERO SECTION (HEAD & HOODIE PERFECTLY FRAMED) */}
         <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 pt-[90px] pb-12">
           {heroContent}
         </section>
 
-        {/* SECTION 2: NEXT SECTION (FULL REVEAL TILL LEGS/SHOES) */}
+        {/* SECTION 2: NEXT SECTION (LEGS & BOOTS REVEALED ON SCROLL) */}
         <section className="relative z-20 min-h-screen flex flex-col justify-between px-8 lg:px-16 py-16 border-t border-black/10">
           {nextSectionContent}
         </section>
