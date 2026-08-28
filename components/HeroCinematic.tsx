@@ -11,7 +11,6 @@ import { HangingBoard } from '@/components/HangingBoard';
 export function HeroCinematic() {
   const containerRef = useRef<HTMLDivElement>(null);
   const modelRef = useRef<HTMLDivElement>(null);
-  const headlineRef = useRef<HTMLHeadingElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const leftUiRef = useRef<HTMLDivElement>(null);
   const rightUiRef = useRef<HTMLDivElement>(null);
@@ -23,7 +22,6 @@ export function HeroCinematic() {
     const ctx = gsap.context(() => {
       // 1. Initial State: Pure Clean White Screen
       gsap.set(modelRef.current, { opacity: 0, scale: 0.95, y: 30 });
-      gsap.set(headlineRef.current, { opacity: 0, y: 110, scale: 0.98 });
       gsap.set(headerRef.current, { opacity: 0, y: -20 });
       gsap.set(leftUiRef.current, { opacity: 0, y: 25 });
       gsap.set(rightUiRef.current, { opacity: 0, y: 25 });
@@ -47,19 +45,6 @@ export function HeroCinematic() {
           ease: 'power3.out',
         },
         0.2
-      );
-
-      // 0.70s - 2.00s: Massive "SPEAK ALVORE" Typography Entrance
-      tl.to(
-        headlineRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1.3,
-          ease: 'power4.out',
-        },
-        0.7
       );
 
       // 1.50s - 2.30s: Upper Navigation Bar Reveal
@@ -185,16 +170,6 @@ export function HeroCinematic() {
               className="object-contain object-center drop-shadow-md"
             />
           </div>
-        </div>
-
-        {/* MASSIVE TYPOGRAPHY (z-30) — SPEAK ALVORE WITH DYNAMIC MIX-BLEND DIFFERENCE */}
-        <div className="absolute inset-x-0 bottom-12 z-30 flex justify-center pointer-events-none text-center w-full px-2">
-          <h1
-            ref={headlineRef}
-            className="text-[12.5vw] md:text-[13.5vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]"
-          >
-            SPEAK ALVORE
-          </h1>
         </div>
 
         {/* Floating High-Fashion Editorial Spec Badges (z-30) */}
