@@ -14,8 +14,8 @@ export function ThreeDBadge() {
 
   // Physics Spring Config for buttery-smooth 3D movement
   const springConfig = { damping: 20, stiffness: 200, mass: 0.5 };
-  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [12, -12]), springConfig);
-  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-12, 12]), springConfig);
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [14, -14]), springConfig);
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-14, 14]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!badgeRef.current) return;
@@ -37,14 +37,14 @@ export function ThreeDBadge() {
     y.set(0);
   };
 
-  // GSAP 3D Subtle Breathing Float Effect
+  // GSAP 3D Subtle Breathing Float & Shimmer Pulse
   useEffect(() => {
     if (!textRef.current) return;
 
     const ctx = gsap.context(() => {
       gsap.to(textRef.current, {
-        translateZ: 6,
-        duration: 2.2,
+        translateZ: 8,
+        duration: 2,
         repeat: -1,
         yoyo: true,
         ease: 'sine.inOut',
@@ -65,42 +65,45 @@ export function ThreeDBadge() {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="group relative inline-flex items-center space-x-2.5 px-4 py-2 rounded-full border border-black/20 bg-gradient-to-b from-white via-gray-50 to-gray-100/95 backdrop-blur-md shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden select-none"
+        className="group relative inline-flex items-center space-x-2.5 px-4.5 py-2 rounded-full border border-black/30 bg-gradient-to-b from-white via-gray-100 to-white backdrop-blur-md shadow-md hover:shadow-2xl hover:border-black transition-all duration-300 cursor-pointer overflow-hidden select-none"
       >
         {/* 3D Inner Layer Depth */}
         <div
-          style={{ transform: 'translateZ(10px)' }}
+          style={{ transform: 'translateZ(12px)' }}
           className="relative flex items-center space-x-2.5"
         >
-          {/* Live Pulsing Status Dot */}
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-black" />
+          {/* Live Pulsing Bright Indicator Dot */}
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-85" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]" />
           </span>
 
-          {/* High Fashion Title */}
+          {/* HIGH FASHION Bright Metallic Text */}
           <span
             ref={textRef}
             style={{ transformStyle: 'preserve-3d' }}
-            className="text-[10px] md:text-[11px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]"
+            className="text-[10px] md:text-[11px] tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]"
           >
             HIGH FASHION
           </span>
 
-          {/* Elegant 3D Spring Hover Animated "agency" Text */}
+          {/* ULTRA-BRIGHT METALLIC SHINE 3D "agency" TEXT */}
           <motion.span
-            whileHover={{ scale: 1.12, y: -2, rotate: -3 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 15 }}
-            className="inline-block font-serif italic font-normal lowercase text-black/75 hover:text-black text-xs md:text-sm drop-shadow-xs hover:drop-shadow-md cursor-pointer transition-colors duration-300 ml-0.5"
+            whileHover={{ scale: 1.15, y: -2, rotate: -3 }}
+            transition={{ type: 'spring', stiffness: 450, damping: 14 }}
+            className="inline-block font-serif italic font-medium lowercase text-xs md:text-sm text-black drop-shadow-[0_0_12px_rgba(255,255,255,1)] hover:drop-shadow-[0_0_16px_rgba(0,0,0,0.6)] cursor-pointer transition-all duration-300 ml-0.5 relative"
           >
-            agency
+            {/* Animated Ultra Bright Silver Metallics Text */}
+            <span className="bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent group-hover:from-black group-hover:via-gray-400 group-hover:to-black transition-all duration-500">
+              agency
+            </span>
           </motion.span>
         </div>
 
-        {/* 3D Metallic Gloss Sweep Overlay */}
+        {/* ULTRA-BRIGHT METALLIC GLOSS SWEEP BEAM OVERLAY */}
         <div
-          style={{ transform: 'translateZ(15px)' }}
-          className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-1000 ease-in-out pointer-events-none"
+          style={{ transform: 'translateZ(20px)' }}
+          className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-gradient-to-r from-transparent via-white/90 to-transparent transition-transform duration-800 ease-in-out pointer-events-none"
         />
       </motion.div>
     </div>
