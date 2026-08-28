@@ -55,7 +55,7 @@ export function ThreeDBadge() {
   }, []);
 
   return (
-    <div style={{ perspective: 1000 }} className="inline-block translate-y-3.5">
+    <div style={{ perspective: 1000 }} className="inline-block translate-y-3.5 whitespace-nowrap">
       <motion.div
         ref={badgeRef}
         onMouseMove={handleMouseMove}
@@ -65,36 +65,36 @@ export function ThreeDBadge() {
           rotateY,
           transformStyle: 'preserve-3d',
         }}
-        className="group relative inline-flex items-center space-x-3 px-5 py-2 rounded-full border border-black/30 bg-gradient-to-b from-white via-gray-100 to-white backdrop-blur-md shadow-md hover:shadow-xl hover:border-black transition-all duration-300 cursor-pointer overflow-hidden select-none"
+        className="group relative inline-flex items-center space-x-3 px-5 py-2 rounded-full border border-black/30 bg-gradient-to-b from-white via-gray-100 to-white backdrop-blur-md shadow-md hover:shadow-xl hover:border-black transition-all duration-300 cursor-pointer overflow-hidden select-none whitespace-nowrap"
       >
-        {/* 3D Inner Layer Depth */}
+        {/* 3D Inner Layer Depth in Single Non-Wrapping Line */}
         <div
           style={{ transform: 'translateZ(12px)' }}
-          className="relative flex items-center space-x-2.5"
+          className="relative flex items-center space-x-2.5 whitespace-nowrap"
         >
           {/* Live Pulsing Bright Indicator Dot */}
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2 w-2 shrink-0">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-85" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-black shadow-[0_0_8px_rgba(0,0,0,0.8)]" />
           </span>
 
-          {/* HIGH FASHION Bright Metallic Text (Big Size) */}
+          {/* HIGH FASHION Bright Metallic Text */}
           <span
             ref={textRef}
             style={{ transformStyle: 'preserve-3d' }}
-            className="text-xs md:text-sm tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)]"
+            className="text-xs md:text-sm tracking-[0.28em] font-extrabold uppercase font-['Syne'] text-black drop-shadow-[0_1px_3px_rgba(0,0,0,0.2)] whitespace-nowrap"
           >
             HIGH FASHION
           </span>
 
-          {/* ULTRA-BRIGHT METALLIC SHINE 3D "agency" TEXT (Big Size) */}
+          {/* ULTRA-BRIGHT METALLIC SHINE 3D "agency" TEXT */}
           <motion.span
             whileHover={{ scale: 1.15, y: -2, rotate: -3 }}
             transition={{ type: 'spring', stiffness: 450, damping: 14 }}
-            className="inline-block font-serif italic font-medium lowercase text-sm md:text-base text-black drop-shadow-[0_0_12px_rgba(255,255,255,1)] hover:drop-shadow-[0_0_16px_rgba(0,0,0,0.6)] cursor-pointer transition-all duration-300 ml-0.5 relative"
+            className="inline-block font-serif italic font-medium lowercase text-sm md:text-base text-black drop-shadow-[0_0_12px_rgba(255,255,255,1)] hover:drop-shadow-[0_0_16px_rgba(0,0,0,0.6)] cursor-pointer transition-all duration-300 ml-0.5 relative whitespace-nowrap"
           >
             {/* Animated Ultra Bright Silver Metallics Text */}
-            <span className="bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent group-hover:from-black group-hover:via-gray-400 group-hover:to-black transition-all duration-500">
+            <span className="bg-gradient-to-r from-black via-gray-700 to-black bg-clip-text text-transparent group-hover:from-black group-hover:via-gray-400 group-hover:to-black transition-all duration-500 whitespace-nowrap">
               agency
             </span>
           </motion.span>
