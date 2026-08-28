@@ -132,36 +132,41 @@ export default function Home() {
               THE SHOUT
             </p>
 
-            {/* HANGING BLACK BOARD SIGNBOARD WITH WHITE TEXT & BLACK HANGING WIRES */}
-            <div className="relative pt-4 flex flex-col items-end">
-              {/* Black Hanging Wires / Ropes connected to top boundary */}
-              <div className="absolute -top-6 right-6 flex space-x-24 pointer-events-none z-10">
-                {/* Left Wire & Top Hanging Ring */}
+            {/* HANGING BLACK BOARD SIGNBOARD SUSPENDED FROM TOP HEADER BOUNDARY */}
+            <div className="relative flex flex-col items-end group origin-top">
+              {/* Black Hanging Wires / Ropes extending all the way from top header border */}
+              <div className="absolute -top-[100px] right-6 flex space-x-28 pointer-events-none z-10">
+                {/* Left Rope & Top Ceiling Mount Pin */}
                 <div className="flex flex-col items-center">
-                  <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-2xs" />
-                  <div className="w-[1.5px] h-6 bg-black" />
+                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neutral-900 shadow-md" />
+                  <div className="w-[2px] h-[100px] bg-black shadow-2xs" />
                 </div>
-                {/* Right Wire & Top Hanging Ring */}
+                {/* Right Rope & Top Ceiling Mount Pin */}
                 <div className="flex flex-col items-center">
-                  <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-2xs" />
-                  <div className="w-[1.5px] h-6 bg-black" />
+                  <div className="w-3 h-3 rounded-full border-2 border-black bg-neutral-900 shadow-md" />
+                  <div className="w-[2px] h-[100px] bg-black shadow-2xs" />
                 </div>
               </div>
 
-              {/* Hanging Dark Luxury Blackboard */}
-              <div className="relative mt-2 px-5 py-4 rounded-2xl bg-[#111111] text-white border border-white/15 shadow-2xl max-w-[260px] text-right group hover:scale-[1.02] transition-transform duration-300">
-                {/* Metallic Eyelet Corner Rivets */}
-                <div className="absolute -top-1.5 left-5 w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600 flex items-center justify-center shadow-xs">
+              {/* Suspended Blackboard Container */}
+              <div className="relative px-6 py-5 rounded-2xl bg-[#0d0d0d] text-white border border-white/20 shadow-2xl max-w-[270px] text-right group-hover:rotate-1 group-hover:scale-[1.02] origin-top transition-transform duration-500 ease-out">
+                {/* Metallic Eyelet Corner Rivets connecting ropes to board */}
+                <div className="absolute -top-2 left-6 w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-500 flex items-center justify-center shadow-md">
                   <div className="w-1.5 h-1.5 rounded-full bg-black" />
                 </div>
-                <div className="absolute -top-1.5 right-5 w-3 h-3 rounded-full bg-neutral-800 border border-neutral-600 flex items-center justify-center shadow-xs">
+                <div className="absolute -top-2 right-6 w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-500 flex items-center justify-center shadow-md">
                   <div className="w-1.5 h-1.5 rounded-full bg-black" />
                 </div>
 
+                {/* Header Tag inside Blackboard */}
+                <div className="flex items-center justify-end space-x-2 mb-2 border-b border-white/10 pb-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-ping" />
+                  <span className="text-[9px] font-mono tracking-widest text-white/50 uppercase">
+                    EDITORIAL SIGNBOARD
+                  </span>
+                </div>
+
                 {/* White Texting inside Black Board */}
-                <p className="text-[9px] font-mono tracking-widest text-white/40 uppercase mb-1">
-                  EDITORIAL // QUOTE
-                </p>
                 <ScrambleText
                   text="STYLE IS A WAY TO SAY WHO YOU ARE WITHOUT HAVING TO SPEAK"
                   trigger="onMount"
