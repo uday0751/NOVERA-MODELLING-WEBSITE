@@ -1,219 +1,225 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-/** CONFIGURABLE CONSTANTS AT TOP OF FILE */
-export const SCRAMBLE_DEFAULTS = {
-  CHARACTER_SET: '0123456789#$%&*+=',
-  CHAR_DURATION: 0.6,
-  STAGGER_PER_CHAR: 0.03,
-  STAGGER_PER_LINE: 0.2,
-  EASE: 'power2.out',
+/** Configurable Constants at top of file for easy tuning */
+export const DEFAULT_SCRAMBLE_CONFIG = {
+  CHARACTER_SET: '0123456789#$%&*',
+  CYCLES_PER_CHAR: 10,
+  CYCLE_SPEED_MS: 40,
+  STAGGER_CHAR_MS: 25,
+  STAGGER_LINE_MS: 200,
+  SHINE_COLOR: 'rgba(255, 255, 255, 0.25)',
+  SHINE_OPACITY: 0.18,
+  SHINE_ANGLE: '115deg',
+  SHINE_WIDTH: '300px',
+  SHINE_DURATION: 1.8,
 };
 
 export interface ScrambleTextProps {
   text: string;
   trigger?: 'onMount' | 'onScroll';
   scrambleCharacterSet?: string;
-  charDuration?: number;
-  staggerPerChar?: number;
-  staggerPerLine?: number;
-  ease?: string;
+  cyclesPerCharacter?: number;
+  cycleSpeedMs?: number;
+  staggerPerCharacterMs?: number;
+  staggerPerLineMs?: number;
+  shineColor?: string;
+  shineOpacity?: number;
+  shineAngle?: string;
+  shineWidth?: string;
+  shineDuration?: number;
   className?: string;
 }
 
 export function ScrambleText({
   text,
   trigger = 'onMount',
-  scrambleCharacterSet = SCRAMBLE_DEFAULTS.CHARACTER_SET,
-  charDuration = SCRAMBLE_DEFAULTS.CHAR_DURATION,
-  staggerPerChar = SCRAMBLE_DEFAULTS.STAGGER_PER_CHAR,
-  staggerPerLine = SCRAMBLE_DEFAULTS.STAGGER_PER_LINE,
-  ease = SCRAMBLE_DEFAULTS.EASE,
+  scrambleCharacterSet = DEFAULT_SCRAMBLE_CONFIG.CHARACTER_SET,
+  cyclesPerCharacter = DEFAULT_SCRAMBLE_CONFIG.CYCLES_PER_CHAR,
+  cycleSpeedMs = DEFAULT_SCRAMBLE_CONFIG.CYCLE_SPEED_MS,
+  staggerPerCharacterMs = DEFAULT_SCRAMBLE_CONFIG.STAGGER_CHAR_MS,
+  staggerPerLineMs = DEFAULT_SCRAMBLE_CONFIG.STAGGER_LINE_MS,
+  shineColor = DEFAULT_SCRAMBLE_CONFIG.SHINE_COLOR,
+  shineOpacity = DEFAULT_SCRAMBLE_CONFIG.SHINE_OPACITY,
+  shineAngle = DEFAULT_SCRAMBLE_CONFIG.SHINE_ANGLE,
+  shineWidth = DEFAULT_SCRAMBLE_CONFIG.SHINE_WIDTH,
+  shineDuration = DEFAULT_SCRAMBLE_CONFIG.SHINE_DURATION,
   className = '',
 }: ScrambleTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  const shineRef = useRef<HTMLDivElement>(null);
+  const timeoutsRef = useRef<NodeJS.Timeout[]>([]);
+  const intervalsRef = useRef<NodeJS.Timeout[]>([]);
 
+  // Split text into lines, then characters
   const lines = text.split('\n');
+
+  // Track displayed text state per character slot (initialized with actual text)
+  const [displayText, setDisplayText] = useState<string[][]>(() =>
+    lines.map((line) => line.split(''))
+  );
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Accessibility check: OS reduced motion
+    // Accessibility Check: Skip animation if OS prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) {
-      spanRefs.current.forEach((span) => {
-        if (span && span.dataset.finalChar) {
-          span.textContent = span.dataset.finalChar;
-        }
-      });
+      setDisplayText(lines.map((line) => line.split('')));
       return;
     }
 
-    const runAnimation = () => {
-      // Kill any previous timeline instance
-      if (timelineRef.current) {
-        timelineRef.current.kill();
+    const startAnimation = () => {
+      // Clear any prior active timers
+      timeoutsRef.current.forEach(clearTimeout);
+      intervalsRef.current.forEach(clearInterval);
+      timeoutsRef.current = [];
+      intervalsRef.current = [];
+
+      // 1. Animate Background Glass Light Sweep
+      if (shineRef.current) {
+        gsap.fromTo(
+          shineRef.current,
+          { xPercent: -100, opacity: 0 },
+          {
+            xPercent: 200,
+            opacity: shineOpacity,
+            duration: shineDuration,
+            ease: 'power2.inOut',
+          }
+        );
       }
 
-      // GSAP Master Timeline (Frame-synced via requestAnimationFrame)
-      const masterTimeline = gsap.timeline({
-        onComplete: () => {
-          // Guarantee 100% of characters are locked to final text on completion
-          spanRefs.current.forEach((span) => {
-            if (span && span.dataset.finalChar) {
-              span.textContent = span.dataset.finalChar;
-              span.style.opacity = '1';
-            }
-          });
-        },
-      });
+      // 2. Scramble/Decode Execution Engine
+      lines.forEach((line, lineIndex) => {
+        const lineOffsetMs = lineIndex * staggerPerLineMs;
 
-      lines.forEach((line, lineIdx) => {
-        const lineStartTime = lineIdx * staggerPerLine;
-        const lineSpans: { span: HTMLSpanElement; finalChar: string }[] = [];
-
-        spanRefs.current.forEach((span) => {
-          if (span && span.dataset.lineIdx === String(lineIdx) && span.dataset.finalChar) {
-            lineSpans.push({
-              span,
-              finalChar: span.dataset.finalChar,
-            });
-          }
-        });
-
-        lineSpans.forEach((item, charIdx) => {
-          const { span, finalChar } = item;
+        line.split('').forEach((finalChar, charIndex) => {
+          const charIndexInLine = charIndex;
 
           // Keep spaces and punctuation un-scrambled
           if (finalChar === ' ' || !/[a-zA-Z0-9—]/.test(finalChar)) {
-            span.textContent = finalChar;
+            setDisplayText((prev) => {
+              const updated = prev.map((l) => [...l]);
+              updated[lineIndex][charIndexInLine] = finalChar;
+              return updated;
+            });
             return;
           }
 
-          const proxy = { progress: 0 };
-          let prevChar = '';
+          const startDelay = lineOffsetMs + charIndexInLine * staggerPerCharacterMs;
 
-          masterTimeline.to(
-            proxy,
-            {
-              progress: 1,
-              duration: charDuration,
-              ease: ease,
-              onStart: () => {
+          // Delay before this character begins scrambling
+          const tId = setTimeout(() => {
+            let cycleCount = 0;
+
+            const iId = setInterval(() => {
+              cycleCount++;
+
+              if (cycleCount >= cyclesPerCharacter) {
+                // Lock in final character
+                clearInterval(iId);
+                setDisplayText((prev) => {
+                  const updated = prev.map((l) => [...l]);
+                  updated[lineIndex][charIndexInLine] = finalChar;
+                  return updated;
+                });
+              } else {
+                // Cycle through random characters from character set
                 const randomChar =
                   scrambleCharacterSet[
                     Math.floor(Math.random() * scrambleCharacterSet.length)
                   ];
-                span.textContent = randomChar;
-                span.style.opacity = '0.7';
-              },
-              onUpdate: () => {
-                if (proxy.progress >= 1) {
-                  span.textContent = finalChar;
-                  span.style.opacity = '1';
-                } else {
-                  let nextChar =
-                    scrambleCharacterSet[
-                      Math.floor(Math.random() * scrambleCharacterSet.length)
-                    ];
-                  while (nextChar === prevChar && scrambleCharacterSet.length > 1) {
-                    nextChar =
-                      scrambleCharacterSet[
-                        Math.floor(Math.random() * scrambleCharacterSet.length)
-                      ];
-                  }
-                  prevChar = nextChar;
 
-                  // IMPERATIVE DIRECT DOM UPDATE
-                  span.textContent = nextChar;
-                  span.style.opacity = '0.75';
-                }
-              },
-              onComplete: () => {
-                span.textContent = finalChar;
-                span.style.opacity = '1';
-              },
-            },
-            lineStartTime + charIdx * staggerPerChar
-          );
+                setDisplayText((prev) => {
+                  const updated = prev.map((l) => [...l]);
+                  updated[lineIndex][charIndexInLine] = randomChar;
+                  return updated;
+                });
+              }
+            }, cycleSpeedMs);
+
+            intervalsRef.current.push(iId);
+          }, startDelay);
+
+          timeoutsRef.current.push(tId);
         });
       });
-
-      timelineRef.current = masterTimeline;
     };
 
     if (trigger === 'onMount') {
-      // Small tick delay to ensure DOM refs are attached
-      const timer = setTimeout(() => {
-        runAnimation();
+      const mountTimer = setTimeout(() => {
+        startAnimation();
       }, 50);
       return () => {
-        clearTimeout(timer);
-        if (timelineRef.current) {
-          timelineRef.current.kill();
-        }
+        clearTimeout(mountTimer);
+        timeoutsRef.current.forEach(clearTimeout);
+        intervalsRef.current.forEach(clearInterval);
       };
     } else {
       const observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            runAnimation();
+            startAnimation();
             observer.disconnect();
           }
         },
-        { threshold: 0.1 }
+        { threshold: 0.2 }
       );
 
       observer.observe(containerRef.current);
 
       return () => {
         observer.disconnect();
-        if (timelineRef.current) {
-          timelineRef.current.kill();
-        }
+        timeoutsRef.current.forEach(clearTimeout);
+        intervalsRef.current.forEach(clearInterval);
       };
     }
   }, [
     text,
     trigger,
     scrambleCharacterSet,
-    charDuration,
-    staggerPerChar,
-    staggerPerLine,
-    ease,
+    cyclesPerCharacter,
+    cycleSpeedMs,
+    staggerPerCharacterMs,
+    staggerPerLineMs,
+    shineDuration,
+    shineOpacity,
   ]);
-
-  let globalCharIndex = 0;
 
   return (
     <div
       ref={containerRef}
       className={`relative inline-block overflow-hidden py-1 ${className}`}
     >
-      <div className="relative z-10 space-y-1">
-        {lines.map((line, lIdx) => (
-          <div key={`line-${lIdx}`} className="leading-relaxed">
-            {line.split('').map((char, cIdx) => {
-              const refIdx = globalCharIndex++;
+      {/* SOFT DIAGONAL BACKGROUND LIGHT SWEEP */}
+      <div
+        ref={shineRef}
+        style={{
+          background: `linear-gradient(${shineAngle}, transparent 0%, ${shineColor} 50%, transparent 100%)`,
+          width: shineWidth,
+        }}
+        className="absolute inset-y-0 -left-full z-0 pointer-events-none blur-md transform -skew-x-12"
+      />
 
-              return (
-                <span
-                  key={`c-${lIdx}-${cIdx}`}
-                  ref={(el) => {
-                    spanRefs.current[refIdx] = el;
-                  }}
-                  data-line-idx={lIdx}
-                  data-final-char={char}
-                  className="inline-block transition-opacity duration-150"
-                >
-                  {char}
-                </span>
-              );
-            })}
+      {/* SCRAMBLE/DECODE TEXT DISPLAY */}
+      <div className="relative z-10 space-y-1">
+        {displayText.map((lineChars, lIdx) => (
+          <div key={`line-${lIdx}`} className="leading-relaxed">
+            {lineChars.map((char, cIdx) => (
+              <span
+                key={`char-${lIdx}-${cIdx}`}
+                className={
+                  lines[lIdx][cIdx] !== char
+                    ? 'font-mono text-black/70 font-bold'
+                    : 'transition-colors duration-150'
+                }
+              >
+                {char}
+              </span>
+            ))}
           </div>
         ))}
       </div>
