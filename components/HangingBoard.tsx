@@ -7,45 +7,37 @@ import { ScrambleText } from '@/components/ScrambleText';
 export function HangingBoard() {
   return (
     <div className="relative z-40 flex flex-col items-end group origin-top my-1">
-      {/* Metallic Hanging Wires extending from top boundary */}
-      <div className="absolute -top-[100px] right-6 flex space-x-20 pointer-events-none z-30">
-        {/* Left Wire */}
-        <div className="flex flex-col items-center">
-          <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-xs" />
-          <div className="w-[1.5px] h-[100px] bg-gradient-to-b from-black via-gray-500 to-black shadow-2xs" />
-        </div>
-        {/* Right Wire */}
-        <div className="flex flex-col items-center">
-          <div className="w-2.5 h-2.5 rounded-full border border-black bg-white shadow-xs" />
-          <div className="w-[1.5px] h-[100px] bg-gradient-to-b from-black via-gray-500 to-black shadow-2xs" />
-        </div>
+      {/* Single Central Metallic Hanging Wire extending from top boundary */}
+      <div className="absolute -top-[100px] right-28 flex flex-col items-center pointer-events-none z-30">
+        {/* Top Ceiling Mount Ring */}
+        <div className="w-3 h-3 rounded-full border-2 border-black bg-white shadow-md" />
+        {/* Single Central Rope/Wire */}
+        <div className="w-[2px] h-[100px] bg-gradient-to-b from-black via-gray-500 to-black shadow-xs" />
       </div>
 
-      {/* Compact 3D Swaying Funky Blackboard Container */}
+      {/* Tilted 3D Swaying Funky Blackboard Container Suspended from Single Wire */}
       <motion.div
-        animate={{ rotate: [-2, 2, -2] }}
+        initial={{ rotate: -7 }}
+        animate={{ rotate: [-9, -5, -9] }}
         transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
-        whileHover={{ scale: 1.04, rotate: 0 }}
+        whileHover={{ scale: 1.05, rotate: -4 }}
         style={{ transformOrigin: 'top center' }}
-        className="relative z-40 mt-1 px-4 py-3 rounded-2xl bg-gradient-to-b from-[#1a1a1a] via-[#111111] to-[#080808] text-white border border-white/20 shadow-xl max-w-[220px] text-right cursor-pointer select-none overflow-hidden"
+        className="relative z-40 mt-1 px-4 py-3 rounded-2xl bg-gradient-to-b from-[#1a1a1a] via-[#111111] to-[#080808] text-white border border-white/20 shadow-2xl max-w-[220px] text-right cursor-pointer select-none overflow-hidden -rotate-6"
       >
-        {/* Metallic Corner Rivet Eyelets */}
-        <div className="absolute -top-1 left-5 w-2.5 h-2.5 rounded-full bg-neutral-800 border border-neutral-400 flex items-center justify-center shadow-xs z-50">
-          <div className="w-1 h-1 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.9)]" />
-        </div>
-        <div className="absolute -top-1 right-5 w-2.5 h-2.5 rounded-full bg-neutral-800 border border-neutral-400 flex items-center justify-center shadow-xs z-50">
-          <div className="w-1 h-1 rounded-full bg-white shadow-[0_0_4px_rgba(255,255,255,0.9)]" />
+        {/* Single Metallic Center Eyelet Ring where single wire connects */}
+        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3.5 h-3.5 rounded-full bg-neutral-800 border border-neutral-400 flex items-center justify-center shadow-md z-50">
+          <div className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_6px_rgba(255,255,255,0.9)]" />
         </div>
 
         {/* Bold White Top Tag */}
-        <div className="flex items-center justify-end space-x-1.5 mb-1.5 pb-1 border-b border-white/10">
+        <div className="flex items-center justify-end space-x-1.5 mb-1.5 pb-1 border-b border-white/10 pt-1">
           <span className="text-[8px] font-mono font-extrabold tracking-widest text-white uppercase flex items-center space-x-1 drop-shadow-[0_0_6px_rgba(255,255,255,0.8)]">
             <span className="h-1 w-1 rounded-full bg-white animate-ping inline-block mr-1" />
             ★ STYLING STATEMENT
           </span>
         </div>
 
-        {/* Funky Stylish White Texting Quote (Compact Size) */}
+        {/* Funky Stylish White Texting Quote (Compact Tilted Size) */}
         <div className="py-0.5">
           <ScrambleText
             text="STYLE IS A WAY TO SAY WHO YOU ARE WITHOUT HAVING TO SPEAK"
