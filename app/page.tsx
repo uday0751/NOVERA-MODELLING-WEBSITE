@@ -50,15 +50,15 @@ export default function Home() {
         </div>
       </header>
 
-      {/* HERO SECTION WITH USER'S EXACT HIGH-DEFINITION IMAGE AS-IS */}
+      {/* HERO SECTION WITH CLEAN HIGH-RES MODEL BACKGROUND IMAGE */}
       <section className="relative min-h-[calc(100vh-80px)] flex flex-col justify-between px-8 lg:px-16 pt-8 pb-12 overflow-hidden bg-white">
         
-        {/* Full-HD Exact User Image Container */}
+        {/* Full-HD Clean Model Image Container */}
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none p-4 md:p-8">
           <div className="relative w-full max-w-6xl h-full min-h-[600px] md:min-h-[750px]">
             <Image
-              src="/speak-alvore-hero.png"
-              alt="SPEAK ALVORE High Fashion Editorial"
+              src="/user-clean-hero.png"
+              alt="ALVORE High Fashion Editorial Model"
               fill
               priority
               quality={100}
@@ -100,8 +100,15 @@ export default function Home() {
           </div>
         </div>
 
+        {/* BOTTOM HEADLINE IN REAL VECTOR HTML TEXT */}
+        <div className="relative z-20 pt-6 pb-2 text-center">
+          <h1 className="text-5xl sm:text-7xl md:text-[9.2vw] font-extrabold uppercase tracking-tighter text-black leading-none select-none font-['Syne']">
+            SPEAK ALVORE
+          </h1>
+        </div>
+
         {/* Bottom Spacer preserving image bottom headline area */}
-        <div className="relative z-20 pt-8 border-t border-black/10 flex justify-between items-center mt-auto">
+        <div className="relative z-20 pt-4 border-t border-black/10 flex justify-between items-center mt-auto">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             ALVORE EDITORIAL // 2026
           </span>
