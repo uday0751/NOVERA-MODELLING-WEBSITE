@@ -44,12 +44,12 @@ export default function Home() {
         </div>
       </header>
 
-      {/* GSAP SINGLE TIMELINE SCROLL-DRIVEN IMAGE REVEAL */}
+      {/* GSAP STACKED TWO-IMAGE SCROLL-DRIVEN REVEAL */}
       <ScrollImageReveal
-        imageSrc="/full-length-model.png"
+        topImageSrc="/user-clean-hero.png"
+        bottomImageSrc="/full-length-model.png"
         scaleDrift={1.03}
         rotationDrift={1}
-        revealMode="pinned"
         heroContent={
           <>
             {/* Middle Content Overlay Grid */}

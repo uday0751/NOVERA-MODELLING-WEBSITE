@@ -11,35 +11,31 @@ if (typeof window !== 'undefined') {
 }
 
 export interface ScrollImageRevealProps {
-  imageSrc?: string;
+  topImageSrc?: string; // waist-up photo, e.g. "/user-clean-hero.png"
+  bottomImageSrc?: string; // full-body photo showing legs/pants/shoes, e.g. "/full-length-model.png"
   heroContent?: React.ReactNode;
   nextSectionContent?: React.ReactNode;
-  heroCropBottomPercent?: number;
-  nextSectionCropPercent?: number;
   scaleDrift?: number;
   rotationDrift?: number;
-  revealMode?: 'pinned' | 'parallax';
   className?: string;
 }
 
 export function ScrollImageReveal({
-  imageSrc = '/full-length-model.png',
+  topImageSrc = '/user-clean-hero.png',
+  bottomImageSrc = '/full-length-model.png',
   heroContent,
   nextSectionContent,
-  heroCropBottomPercent = 55,
-  nextSectionCropPercent = 100,
   scaleDrift = 1.03,
   rotationDrift = 1,
-  revealMode = 'pinned',
   className = '',
 }: ScrollImageRevealProps) {
   const pinSectionRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
+  const translatingContainerRef = useRef<HTMLDivElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
   const nextContentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!pinSectionRef.current || !imageRef.current) return;
+    if (!pinSectionRef.current || !translatingContainerRef.current) return;
 
     // Accessibility check: Skip motion if OS prefers reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -47,11 +43,12 @@ export function ScrollImageReveal({
 
     const ctx = gsap.context(() => {
       // SINGLE GSAP TIMELINE TIED TO SCROLLTRIGGER PIN
+      // end: '+=100%' pins for exactly one viewport height of scroll distance
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: pinSectionRef.current,
           start: 'top top',
-          end: '+=200%',
+          end: '+=100%',
           pin: true,
           pinSpacing: true,
           scrub: 1, // Smooth scrub lag
@@ -59,9 +56,9 @@ export function ScrollImageReveal({
         },
       });
 
-      // 1. Continuous vertical image translation from top half (0) to bottom half (-100vh)
+      // 1. Continuous vertical image translation from top image (0) to bottom stacked image (-100vh)
       tl.to(
-        imageRef.current,
+        translatingContainerRef.current,
         {
           y: '-100vh',
           scale: scaleDrift,
@@ -96,7 +93,7 @@ export function ScrollImageReveal({
             y: 0,
             ease: 'power1.inOut',
           },
-          0.5 // Starts at midpoint of 200vh scroll
+          0.5 // Starts at midpoint of 100% pin scroll
         );
       }
     }, pinSectionRef);
@@ -107,7 +104,7 @@ export function ScrollImageReveal({
   return (
     <div
       ref={pinSectionRef}
-      className={`relative w-full h-[200vh] bg-white text-black overflow-hidden ${className}`}
+      className={`relative w-full h-screen bg-white text-black overflow-hidden ${className}`}
     >
       {/* 3x3 ARCHITECTURAL GRID OVERLAY */}
       <div className="architectural-grid-white z-10 pointer-events-none">
@@ -116,20 +113,34 @@ export function ScrollImageReveal({
         <div /><div /><div />
       </div>
 
-      {/* SINGLE FULL MODEL IMAGE (200VH TALL - SPANS BOTH SECTIONS) */}
-      <div className="absolute inset-0 z-0 flex justify-center pointer-events-none p-4 md:p-8">
-        <div
-          ref={imageRef}
-          className="relative w-full max-w-5xl h-[200vh] will-change-transform"
-        >
+      {/* TWO STACKED 100VH IMAGES INSIDE 200VH TRANSLATING CONTAINER */}
+      <div
+        ref={translatingContainerRef}
+        className="absolute inset-x-0 top-0 z-0 h-[200vh] w-full pointer-events-none will-change-transform"
+      >
+        {/* TOP IMAGE (FIRST 100VH - WAIST UP PHOTO) */}
+        <div className="relative w-full h-[100vh] overflow-hidden [mask-image:linear-gradient(to_bottom,black_85%,transparent_100%)]">
           <Image
-            src={imageSrc}
-            alt="ALVORE Full Body High Fashion Editorial Model"
+            src={topImageSrc}
+            alt="NOVERA Waist Up Editorial Model"
             fill
             priority
             quality={100}
             unoptimized
-            className="object-contain object-top"
+            className="object-cover object-top"
+          />
+        </div>
+
+        {/* BOTTOM IMAGE (SECOND 100VH - FULL BODY / LEGS & SHOES PHOTO) */}
+        <div className="relative w-full h-[100vh] overflow-hidden [mask-image:linear-gradient(to_top,black_85%,transparent_100%)]">
+          <Image
+            src={bottomImageSrc}
+            alt="NOVERA Full Body Editorial Model"
+            fill
+            priority
+            quality={100}
+            unoptimized
+            className="object-cover object-top"
           />
         </div>
       </div>
