@@ -182,11 +182,14 @@ export function HeroCinematic() {
           </div>
         </div>
 
-        {/* MASSIVE TYPOGRAPHY (z-30) — NOVARA DUAL-COLOR MIX-BLEND DIFFERENCE WITH BLACK HIGHLIGHT SHADOW */}
-        <div className="absolute inset-x-0 bottom-8 z-30 flex justify-center pointer-events-none text-center w-full px-6 overflow-hidden">
+        {/* MASSIVE TYPOGRAPHY (z-30) — NOVARA WITH AMBIENT HIGHLIGHT & DYNAMIC MIX-BLEND DIFFERENCE */}
+        <div className="absolute inset-x-0 bottom-8 z-30 flex items-center justify-center pointer-events-none text-center w-full px-6 overflow-hidden">
+          {/* Luminous Ambient Highlight Halo behind text */}
+          <div className="absolute bottom-2 w-2/3 h-20 bg-gradient-to-r from-transparent via-black/15 to-transparent blur-2xl pointer-events-none" />
+
           <h1
             ref={headlineRef}
-            className="text-[8.5vw] sm:text-[9.5vw] md:text-[10.5vw] lg:text-[11vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_6px_25px_rgba(0,0,0,0.8)]"
+            className="relative text-[8.5vw] sm:text-[9.5vw] md:text-[10.5vw] lg:text-[11vw] leading-none font-black font-['Syne'] tracking-tighter uppercase text-white mix-blend-difference select-none whitespace-nowrap drop-shadow-[0_8px_30px_rgba(0,0,0,0.85)] filter brightness-110"
           >
             NOVARA
           </h1>
