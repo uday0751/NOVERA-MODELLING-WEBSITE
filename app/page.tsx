@@ -22,7 +22,7 @@ export default function Home() {
       {/* FIXED FUTURISTIC HEADER NAVBAR */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 lg:px-16 py-5 flex items-center justify-between border-b border-black/10 bg-white/85 backdrop-blur-xl shadow-2xs">
         <Link href="/" className="font-['Syne'] font-extrabold text-2xl tracking-widest text-black flex items-center space-x-2">
-          <span>NOVERA</span>
+          <span>NOVARA</span>
           <span className="text-[10px] font-mono font-bold tracking-normal px-2 py-0.5 rounded-full bg-black text-white uppercase">
             AGENCY // 2026
           </span>
@@ -72,7 +72,7 @@ export default function Home() {
           <div className="relative w-full max-w-5xl h-full">
             <Image
               src="/user-clean-hero.png"
-              alt="NOVERA Editorial Model"
+              alt="NOVARA Editorial Model"
               fill
               priority
               quality={100}
@@ -87,7 +87,7 @@ export default function Home() {
           {/* Left Block: Quote & Action Button */}
           <div className="md:col-span-5 space-y-6 max-w-md">
             <p className="font-grotesk text-sm md:text-base font-semibold uppercase tracking-wider leading-relaxed text-black/95">
-              NOVERA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
+              NOVARA IS BUILT FOR THOSE WHO CHOOSE FORM OVER NOISE — AND LET THE WORK SPEAK WHERE WORDS DON'T HAVE TO
             </p>
 
             <div className="pt-2">
@@ -119,7 +119,7 @@ export default function Home() {
         {/* Hero Section Bottom Bar */}
         <div className="relative z-20 pt-6 mt-auto border-t border-black/10 flex justify-between items-center">
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
-            NOVERA EDITORIAL // 2026
+            NOVARA EDITORIAL // 2026
           </span>
           <span className="text-xs font-mono font-bold tracking-widest text-black/40 uppercase">
             HIGH FASHION AGENCY
@@ -508,7 +508,7 @@ export default function Home() {
       {/* FOOTER */}
       <footer className="relative z-20 py-10 px-8 lg:px-16 bg-black text-white text-xs flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
         <div>
-          <span className="font-['Syne'] font-extrabold text-sm tracking-wider text-white">NOVERA AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
+          <span className="font-['Syne'] font-extrabold text-sm tracking-wider text-white">NOVARA AGENCY</span> — © 2026. ALL RIGHTS RESERVED.
         </div>
         <div className="flex space-x-8 text-white/70 font-semibold uppercase tracking-wider text-[11px]">
           <Link href="/client/models" className="hover:text-white transition-colors">Models</Link>

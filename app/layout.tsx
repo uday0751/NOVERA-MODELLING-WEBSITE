@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NOVERA — High Fashion Talent & Agency Platform",
-  description: "NOVERA is the premier digital platform connecting professional high-fashion models with global luxury brands, commercial clients, and casting directors.",
+  title: "NOVARA — High Fashion Talent & Agency Platform",
+  description: "NOVARA is the premier digital platform connecting professional high-fashion models with global luxury brands, commercial clients, and casting directors.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -122,7 +122,7 @@ export function ScrollImageReveal({
         {/* Source image must stay at or above ~1900px width / 3000px height to avoid upscaling blur when object-fit: cover stretches it to 200vh height on large screens. If replacing this file in the future, keep resolution at or above this size. */}
         <img
           src={imageSrc}
-          alt="NOVERA Full Body High Fashion Editorial Model"
+          alt="NOVARA Full Body High Fashion Editorial Model"
           decoding="sync"
           loading="eager"
           style={{
